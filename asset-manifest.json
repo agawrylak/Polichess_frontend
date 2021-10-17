@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Polichess_frontend/static/css/main.88850f5d.chunk.css",
+    "main.js": "/Polichess_frontend/static/js/main.0f4e0c14.chunk.js",
+    "main.js.map": "/Polichess_frontend/static/js/main.0f4e0c14.chunk.js.map",
+    "runtime-main.js": "/Polichess_frontend/static/js/runtime-main.30931435.js",
+    "runtime-main.js.map": "/Polichess_frontend/static/js/runtime-main.30931435.js.map",
+    "static/js/2.18675bbc.chunk.js": "/Polichess_frontend/static/js/2.18675bbc.chunk.js",
+    "static/js/2.18675bbc.chunk.js.map": "/Polichess_frontend/static/js/2.18675bbc.chunk.js.map",
+    "static/js/3.d3d30c80.chunk.js": "/Polichess_frontend/static/js/3.d3d30c80.chunk.js",
+    "static/js/3.d3d30c80.chunk.js.map": "/Polichess_frontend/static/js/3.d3d30c80.chunk.js.map",
+    "index.html": "/Polichess_frontend/index.html",
+    "static/css/main.88850f5d.chunk.css.map": "/Polichess_frontend/static/css/main.88850f5d.chunk.css.map",
+    "static/js/2.18675bbc.chunk.js.LICENSE.txt": "/Polichess_frontend/static/js/2.18675bbc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.30931435.js",
+    "static/js/2.18675bbc.chunk.js",
+    "static/css/main.88850f5d.chunk.css",
+    "static/js/main.0f4e0c14.chunk.js"
+  ]
+}
