@@ -1,16 +1,4 @@
 
-export interface  move {
-    id: number;
-    pieceName: string;
-    previousPosition: string;
-    nextPosition: string;
-
-}
-
-export interface moveProps {
-    moves: move[];
-}
-
 export interface piece {
     pieceName: string;
     color: string;

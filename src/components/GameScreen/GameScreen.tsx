@@ -21,8 +21,8 @@ function GameScreen() {
 
 
     return (
-        <div className = "container justify-center items-center h-screen m-auto flex flex-row flex-wrap flex-grow" >
-            <div className = "flex flex-row">
+        <div className = "container justify-center items-center h-screen md:m-auto md:flex md:flex-row md:flex-wrap md:flex-grow" >
+            <div className = "flex flex-row flex-wrap">
                 <GameBoard chessLogic={chessLogic} fen = {fen} updateFen = {updateFen} />
                 <GameBoardSidebar resetGame = {resetGame} chessLogic={chessLogic} history={history}/>
             </div>

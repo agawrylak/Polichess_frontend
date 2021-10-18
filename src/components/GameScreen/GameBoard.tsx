@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Chessboard from "chessboardjsx";
 import {Square} from "chess.js";
+import {useEffect} from "react";
 
 
 
@@ -11,7 +12,7 @@ interface OnDropMove {
 }
 export const GameBoard = (props : any) => {
 
-    const maxWidth = 900;
+    let maxWidth = 900;
 
     const onDrop = (onDropMove : OnDropMove) => {
         const move = props.chessLogic.move({
@@ -27,6 +28,16 @@ export const GameBoard = (props : any) => {
         props.chessLogic.move(possibleMoves[randomIndex]);
         props.updateFen();
     }
+
+    const handleResize = () => {
+        if(window.innerWidth < maxWidth){
+            maxWidth = window.innerWidth;
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize)
+    })
 
     return (
         <div>

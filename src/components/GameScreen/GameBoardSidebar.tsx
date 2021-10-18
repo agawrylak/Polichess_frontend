@@ -1,13 +1,13 @@
 import React from 'react';
-import {piece, allChessPieces} from "../../shared/board.interface";
+import {allChessPieces} from "../../shared/board.interface";
 import {Move} from "chess.js";
 
 
 function GameBoardSidebar(props: any) {
 
     return (
-        <div className="w-96 min-h-full flex flex-col flex-grow items-stretch">
-            <div className="font-monospaced pl-2 text-lg text-center">
+        <div className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch">
+            <div className="font-monospaced md:pl-2 text-lg text-center">
                 <div className="flex bg-secondary">
                     <div className="flex-1 font-header uppercase text-white p-1">
                         <span>Easy bot</span>
