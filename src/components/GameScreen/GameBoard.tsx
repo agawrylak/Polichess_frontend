@@ -23,10 +23,16 @@ export const GameBoard = (props : any) => {
 
         if (move === null) return;
 
+        props.updateFen();
+
         let possibleMoves = props.chessLogic.getValidMoves();
         let randomIndex = Math.floor(Math.random() * possibleMoves.length);
-        props.chessLogic.move(possibleMoves[randomIndex]);
-        props.updateFen();
+
+        setTimeout(() => {
+            props.chessLogic.move(possibleMoves[randomIndex]);
+            props.updateFen();
+        }, 200);
+
     }
 
     const handleResize = () => {
