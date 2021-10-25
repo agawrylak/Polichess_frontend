@@ -1,39 +1,45 @@
-import {ChessInstance, Move, ShortMove} from 'chess.js'
-
-
+import { ChessInstance, Move, ShortMove } from "chess.js";
 
 interface PossibleMoves {
-    square: string;
+  square: string;
 }
 
-export class ChessLogic{
-    chessReq:any = require('chess.js');
-    chess:ChessInstance;
+export class ChessLogic {
+  chessReq: any = require("chess.js");
+  chess: ChessInstance;
 
+  constructor() {
+    this.chess = new this.chessReq();
+  }
 
-    constructor(){
-        this.chess = new this.chessReq();
-    }
+  getFen() {
+    return this.chess.fen();
+  }
 
-    getFen() {
-        return this.chess.fen();
-    }
+  move(move: ShortMove): Move | null {
+    return this.chess.move(move);
+  }
 
-    move(move : ShortMove): Move | null {
-        return this.chess.move(move)
-    }
+  getValidMoves(possibleMoves: PossibleMoves): string[] {
+    return this.chess.moves(possibleMoves);
+  }
 
-    getValidMoves(possibleMoves : PossibleMoves) : string[]{
-        return this.chess.moves(possibleMoves)
-    }
+  resetGame(): string {
+    this.chess.reset();
+    return this.getFen();
+  }
 
-    resetGame(): string {
-        this.chess.reset();
-        return this.getFen();
-    }
+  getHistory() {
+    return this.chess.history({ verbose: true });
+  }
 
+  isGameOver() {
+    return this.chess.game_over();
+  }
 
-    getHistory() {
-        return this.chess.history({ verbose: true });
-    }
+  getWinner() {
+    if (this.chess.in_checkmate()) {
+      return this.chess.turn();
+    } else return null;
+  }
 }
