@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+html, body{
+
+  overflow: hidden;
+}
+
+.footer {
+  color: red;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -4,7 +4,7 @@ import { Move } from "chess.js";
 import { useStore } from "../../stores/store";
 
 function GameBoardSidebar() {
-  const { resetGame, getHistory } = useStore();
+  const { resetGame, getHistory, undoMove } = useStore();
 
   return (
     <div className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch">
@@ -36,9 +36,15 @@ function GameBoardSidebar() {
         <div className="flex bg-primary">
           <button
             onClick={resetGame}
-            className="flex-1 font-header uppercase text-white p-1 m-2 ml-20 mr-20 bg-secondary"
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
           >
             <span>Surrender</span>
+          </button>
+          <button
+            onClick={undoMove}
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+          >
+            <span>Undo</span>
           </button>
         </div>
       </div>
