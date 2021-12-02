@@ -1,8 +1,11 @@
 import React from "react";
 import { allChessPieces } from "../../shared/board.interface";
 import { Move } from "chess.js";
+import { useStore } from "../../stores/store";
 
-function GameBoardSidebar(props: any) {
+function GameBoardSidebar() {
+  const { resetGame, getHistory } = useStore();
+
   return (
     <div className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch">
       <div className="font-monospaced md:pl-2 text-lg text-center">
@@ -19,20 +22,20 @@ function GameBoardSidebar(props: any) {
                 {" "}
               </div>
             </div>
-            {MoveHistory(props.history)}
+            {MoveHistory(getHistory())}
           </div>
           <div className="flex grid grid-cols-2 gap-0 mt-2">
             <div className="flex flex-grow flex-wrap justify-center justify-items-start">
-              {LostPieces(getCapturedPieces(props.history, "b"))}
+              {LostPieces(getCapturedPieces(getHistory(), "b"))}
             </div>
             <div className="flex flex-grow flex-wrap justify-center justify-items-start	">
-              {LostPieces(getCapturedPieces(props.history, "w"))}
+              {LostPieces(getCapturedPieces(getHistory(), "w"))}
             </div>
           </div>
         </div>
         <div className="flex bg-primary">
           <button
-            onClick={props.resetGame}
+            onClick={resetGame}
             className="flex-1 font-header uppercase text-white p-1 m-2 ml-20 mr-20 bg-secondary"
           >
             <span>Surrender</span>
