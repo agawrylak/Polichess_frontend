@@ -57,7 +57,11 @@ function SettingsSidebar(props: any) {
               <span>Authors</span>
             </button>
             {openAuthors ? (
-              <div>Made by: Artur Gawrylak, Kamil Głasek, Igor Gospodaryk</div>
+              <div>
+                <div>{"Artur Gawrylak"}</div>
+                <div>{"Kamil Głasek"}</div>
+                <div>{"Igor Gospodaryk"}</div>
+              </div>
             ) : null}
           </div>
           <div className="flex bg-primary">
