@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useStore } from "../../stores/store";
+import { SidebarState, useAnimationStore, useStore } from "../../stores/store";
 import axios from "axios";
 // @ts-ignore
 import Chessground from "react-chessground";
@@ -20,6 +20,8 @@ function Chessboard() {
   const { setMove, setLastMove } = useStore();
   const chess = useStore((state) => state.chess);
   const lastMove = useStore((state) => state.lastMove);
+  const { nextSidebarState } = useAnimationStore();
+  const statisticsState = useAnimationStore((state) => state.statisticsState);
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
   const getFen = () => {
     return chess.fen();
@@ -80,7 +82,9 @@ function Chessboard() {
     if (setMove({ from, to, promotion: "q" })) {
     }
     setLastMove(from, to);
-
+    if (statisticsState == SidebarState.HIDDEN) {
+      nextSidebarState();
+    }
     handleAIMove();
   };
 
