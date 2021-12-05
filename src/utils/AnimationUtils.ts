@@ -1,16 +1,36 @@
 import { AnimationControls } from "framer-motion";
 
+export async function showVerticalMenuDropdown(animation: AnimationControls) {
+  await animation.start({
+    display: "block",
+    opacity: 1,
+    rotateX: 0,
+    transition: { duration: 0.2 },
+  });
+}
+
+export async function hideVerticalMenuDropdown(animation: AnimationControls) {
+  await animation.start({
+    opacity: 0,
+    rotateX: -15,
+    transition: { duration: 0.2 },
+  });
+  await animation.start({
+    display: "none",
+  });
+}
+
 export async function showVerticalMenu(animation: AnimationControls) {
   await animation.start({
     display: "block",
-    y: [-100, 0],
+    y: [-300, 0],
     transition: { duration: 0.4 },
   });
 }
 
 export async function hideVerticalMenu(animation: AnimationControls) {
   await animation.start({
-    y: [0, -100],
+    y: [0, -300],
     transition: { duration: 0.4 },
   });
   await animation.start({

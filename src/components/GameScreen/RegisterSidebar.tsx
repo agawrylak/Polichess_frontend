@@ -23,18 +23,43 @@ const RegisterSidebar = (props: any) => {
     <motion.div
       variants={variants}
       initial="hidden"
-      animate={animation}
+      animate={props.animation}
       onAnimationComplete={(definition) => {
         onComplete(definition);
       }}
       className="mt-6"
     >
-      <div className="font-monospaced md:pl-2 text-lg text-center">
+      <div className="font-monospaced text-lg text-center bg-primary">
         <div className="flex bg-secondary">
-          <div className="flex-1 font-header uppercase text-white p-1 ml-[13px]">
+          <div className="flex-1 font-header uppercase text-white p-1 ">
             <span>Register</span>
           </div>
         </div>
+        <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
+          <div className="grid grid-cols-1 gap-1 ">
+            <span>Email:</span>
+            <input
+              className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
+              type="email"
+              name="name"
+            />
+            <span>Name:</span>
+            <input
+              className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
+              type="text"
+              name="name"
+            />
+            <span>Password:</span>
+            <input
+              className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
+              type="password"
+              name="password"
+            />
+          </div>
+        </div>
+        <button className="w-40 font-header uppercase text-white m-2 p-1 bg-secondary">
+          <span>Submit</span>
+        </button>
       </div>
     </motion.div>
   );

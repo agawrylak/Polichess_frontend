@@ -12,10 +12,6 @@ function SettingsSidebar(props: any) {
   const { nextLoginState, nextRegisterState, setSettingsState } =
     useAnimationStore();
 
-  const variants = {
-    hidden: { display: "block" },
-  };
-
   function onComplete(definition: AnimationDefinition | any) {
     if (definition.display == "none") {
       setSettingsState(SidebarState.HIDDEN);
@@ -28,6 +24,10 @@ function SettingsSidebar(props: any) {
     setOpenAuthors(!openAuthors);
   }
 
+  const variants = {
+    hidden: { display: "block" },
+  };
+
   return (
     <motion.div
       variants={variants}
@@ -38,10 +38,10 @@ function SettingsSidebar(props: any) {
       }}
       className="w-screen md:w-96 flex flex-col flex-grow items-stretch z-10"
     >
-      <div className="font-monospaced md:pl-2 text-lg text-center">
-        <div className="flex bg-secondary">
-          <div className="flex-1 font-header uppercase text-white p-1 ml-[13px]">
-            <span>Settings</span>
+      <div className="font-monospaced text-lg text-center">
+        <div className="bg-secondary flex">
+          <div className="ml-10 font-header uppercase text-white p-2 flex-1 ">
+            <span className="">Settings</span>
           </div>
           <SettingsButton />
         </div>
@@ -50,19 +50,6 @@ function SettingsSidebar(props: any) {
             <div className="pt-2">
               <Dropdowns dropdownPropsList={settings} />
             </div>
-            <button
-              onClick={onClickOpenAuthors}
-              className="flex-1 w-40 font-header uppercase text-white p-1 m-2 bg-secondary"
-            >
-              <span>Authors</span>
-            </button>
-            {openAuthors ? (
-              <div>
-                <div>{"Artur Gawrylak"}</div>
-                <div>{"Kamil Głasek"}</div>
-                <div>{"Igor Gospodaryk"}</div>
-              </div>
-            ) : null}
           </div>
           <div className="flex bg-primary">
             <button

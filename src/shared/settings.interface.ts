@@ -61,7 +61,7 @@ const playerColorSettings: DropdownProps = {
 
 export const settings: DropdownProps[] = [
   playerColorSettings,
-  aiSettings,
   languageSettings,
+  aiSettings,
   showMovesSettings,
 ];
