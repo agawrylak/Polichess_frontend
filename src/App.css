@@ -2,9 +2,8 @@
   text-align: center;
 }
 
-html, body{
-
-  overflow: hidden;
+.gowno{
+  z-index: -100;
 }
 
 .footer {

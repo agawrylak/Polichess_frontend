@@ -1,18 +1,45 @@
 import React from "react";
 import { allChessPieces } from "../../shared/board.interface";
 import { Move } from "chess.js";
-import { useStore } from "../../stores/store";
+import { SidebarState, useAnimationStore, useStore } from "../../stores/store";
+import { motion } from "framer-motion";
+import SettingsButton from "./SettingsButton";
+import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
 
-function GameBoardSidebar() {
+function StatisticsSidebar(props: any) {
   const { resetGame, getHistory, undoMove } = useStore();
+  const { setStatisticsState } = useAnimationStore();
+  const animation = props.animation;
+
+  const variants = {
+    hidden: { display: "none" },
+  };
+
+  function onComplete(definition: AnimationDefinition | any) {
+    console.log("ENDED");
+    if (definition.display == "none") {
+      setStatisticsState(SidebarState.HIDDEN);
+    } else if (definition.display == "block") {
+      setStatisticsState(SidebarState.VISIBLE);
+    }
+  }
 
   return (
-    <div className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch">
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate={animation}
+      onAnimationComplete={(definition) => {
+        onComplete(definition);
+      }}
+      className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch"
+    >
       <div className="font-monospaced md:pl-2 text-lg text-center">
         <div className="flex bg-secondary">
           <div className="flex-1 font-header uppercase text-white p-1">
             <span>Very easy bot</span>
           </div>
+          <SettingsButton />
         </div>
         <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
           <div className="max-h-96 overflow-y-auto flex grid grid-cols-2 gap-0 ">
@@ -48,7 +75,7 @@ function GameBoardSidebar() {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -103,4 +130,4 @@ const getImageForChessPiece = (piece: any) => {
   )?.link;
 };
 
-export default GameBoardSidebar;
+export default StatisticsSidebar;

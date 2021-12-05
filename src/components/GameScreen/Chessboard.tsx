@@ -5,30 +5,24 @@ import axios from "axios";
 import Chessground from "react-chessground";
 import "react-chessground/dist/styles/chessground.css";
 
+const getMaxWidth = () => {
+  let maxSize = 900;
+  if (window.innerWidth < maxSize) {
+    maxSize = window.innerWidth - 20;
+  }
+  if (window.innerHeight < maxSize) {
+    maxSize = window.innerHeight - 20;
+  }
+  return maxSize;
+};
+
 function Chessboard() {
   const { setMove, setLastMove } = useStore();
   const chess = useStore((state) => state.chess);
   const lastMove = useStore((state) => state.lastMove);
-
-  const getMaxWidth = () => {
-    let maxSize = 900;
-    if (window.innerWidth < maxSize) {
-      maxSize = window.innerWidth - 20;
-    }
-    if (window.innerHeight < maxSize) {
-      maxSize = window.innerHeight - 20;
-    }
-
-    return maxSize;
-  };
-
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
-
-  useEffect(() => {});
-
-  const handleResize = () => {
-    setMaxWidth(getMaxWidth());
-    console.log(maxWidth);
+  const getFen = () => {
+    return chess.fen();
   };
 
   const turnColor = () => {
@@ -93,11 +87,11 @@ function Chessboard() {
   };
 
   return (
-    <div className="mr-4 mb-4">
+    <div className="mr-4 mb-4 static">
       <Chessground
         width={maxWidth}
         height={maxWidth}
-        fen={chess.fen()}
+        fen={getFen()}
         onMove={onMove}
         style={{ margin: "auto" }}
         turnColor={turnColor()}

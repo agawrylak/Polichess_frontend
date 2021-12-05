@@ -1,18 +1,22 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GameOutcomeMessage, OnDropMove } from "../../shared/board.interface";
 import Popup from "reactjs-popup";
-import GameOutcomeModal from "./GameOutcomeModal";
+import WinnerModal from "./WinnerModal";
 import { useStore } from "../../stores/store";
 import Chessboard from "./Chessboard";
 
-export const GameBoard = () => {
+export const MainScreen = () => {
   const [open, setOpen] = useState(false);
   const [gameOutcomeMessage, setGameOutcomeMessage] = useState(
     GameOutcomeMessage.IN_PROGRESS
   );
   const chess = useStore((state) => state.chess);
   const closeModal = () => setOpen(false);
+
+  useEffect(() => {
+    console.log("Main screen rendered");
+  });
 
   function getWinner() {
     if (chess.in_checkmate()) {
@@ -39,10 +43,10 @@ export const GameBoard = () => {
   }
 
   return (
-    <div>
+    <div className="z-30">
       <Chessboard />
       <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
-        <GameOutcomeModal outcome={gameOutcomeMessage} />
+        <WinnerModal outcome={gameOutcomeMessage} />
       </Popup>
     </div>
   );
