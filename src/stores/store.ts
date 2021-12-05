@@ -1,5 +1,7 @@
 import { ChessInstance } from "chess.js";
 import create from "zustand";
+import { Option } from "../shared/settings.interface";
+import produce from "immer";
 const chessReq: any = require("chess.js");
 const chessLogic: ChessInstance = new chessReq();
 
@@ -10,6 +12,44 @@ export enum SidebarState {
   HIDDEN_TO_VISIBLE = "HIDDEN TO VISIBLE",
 }
 
+export const useSettingsStore = create<any>((set, get) => ({
+  options: [
+    { label: "Difficulty", value: 3 },
+    { label: "Show moves", value: true },
+    { label: "Language", value: "en_us" },
+    { label: "Play as", value: "w" },
+  ],
+  setOption: (label: string, newValue: any) => {
+    set(
+      produce((state: any) => {
+        const option = state.options.find(
+          (option: Option) => option.label == label
+        );
+        option.value = newValue;
+      })
+    );
+  },
+  getOptionValue: (label: string) => {
+    return get().options.find((option: Option) => option.label == label).value;
+  },
+  getDifficulty: () => {
+    const difficulty = get().options.find(
+      (option: Option) => option.label == "Difficulty"
+    ).value;
+    switch (difficulty) {
+      case 1: {
+        return "Easy";
+      }
+      case 2: {
+        return "Medium";
+      }
+      case 3: {
+        return "Hard";
+      }
+    }
+    return "Unknown";
+  },
+}));
 export const useStore = create<any>((set, get) => ({
   chess: chessLogic,
   lastMove: [],
@@ -37,15 +77,15 @@ export const useStore = create<any>((set, get) => ({
       }
     });
   },
+  setLastMove: (from: any, to: any) => {
+    set((state: any) => {
+      state.lastMove = [from, to];
+    });
+  },
   resetGame: () => {
     set((state: any) => {
       state.chess.reset();
       state.lastMove = [];
-    });
-  },
-  setLastMove: (from: any, to: any) => {
-    set((state: any) => {
-      state.lastMove = [from, to];
     });
   },
 }));

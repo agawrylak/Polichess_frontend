@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { GameOutcomeMessage, OnDropMove } from "../../shared/board.interface";
+import { useState } from "react";
+import { GameOutcomeMessage } from "../../shared/board.interface";
 import Popup from "reactjs-popup";
 import WinnerModal from "./WinnerModal";
 import { useStore } from "../../stores/store";

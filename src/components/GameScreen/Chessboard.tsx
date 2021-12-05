@@ -73,12 +73,11 @@ function Chessboard() {
   const onMove = (from: any, to: any) => {
     const moves = chess.moves({ verbose: true });
     for (let i = 0, len = moves.length; i < len; i++) {
-      /* eslint-disable-line */
       if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
         return;
       }
     }
-    if (setMove({ from, to, promotion: "x" })) {
+    if (setMove({ from, to, promotion: "q" })) {
     }
     setLastMove(from, to);
 

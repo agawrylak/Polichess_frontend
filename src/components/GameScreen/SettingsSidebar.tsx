@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SettingsButton from "./SettingsButton";
 import { SidebarState, useAnimationStore } from "../../stores/store";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
+import Dropdowns from "./Dropdowns";
+import { settings } from "../../shared/settings.interface";
 
 function SettingsSidebar(props: any) {
   const animation = props.animation;
+  const [openAuthors, setOpenAuthors] = useState(false);
   const { nextLoginState, nextRegisterState, setSettingsState } =
     useAnimationStore();
 
@@ -19,6 +22,10 @@ function SettingsSidebar(props: any) {
     } else if (definition.display == "block") {
       setSettingsState(SidebarState.VISIBLE);
     }
+  }
+
+  function onClickOpenAuthors() {
+    setOpenAuthors(!openAuthors);
   }
 
   return (
@@ -38,16 +45,20 @@ function SettingsSidebar(props: any) {
           </div>
           <SettingsButton />
         </div>
-        <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
-          <div>
-            <div>AI Level</div>
-            <div>Show moves</div>
-            <div>Save history</div>
-            <div>Language</div>
-            <div>History</div>
-            <div>Color</div>
-
-            <div>Made by: Artur Gawrylak, Kamil Głasek, Igor Gospodaryk</div>
+        <div>
+          <div className="bg-primary ">
+            <div className="pt-2">
+              <Dropdowns dropdownPropsList={settings} />
+            </div>
+            <button
+              onClick={onClickOpenAuthors}
+              className="flex-1 w-40 font-header uppercase text-white p-1 m-2 bg-secondary"
+            >
+              <span>Authors</span>
+            </button>
+            {openAuthors ? (
+              <div>Made by: Artur Gawrylak, Kamil Głasek, Igor Gospodaryk</div>
+            ) : null}
           </div>
           <div className="flex bg-primary">
             <button

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { allChessPieces } from "../../shared/board.interface";
 import { Move } from "chess.js";
-import { SidebarState, useAnimationStore, useStore } from "../../stores/store";
+import {
+  SidebarState,
+  useAnimationStore,
+  useSettingsStore,
+  useStore,
+} from "../../stores/store";
 import { motion } from "framer-motion";
 import SettingsButton from "./SettingsButton";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
@@ -9,6 +14,7 @@ import { AnimationDefinition } from "framer-motion/types/render/utils/animation"
 function StatisticsSidebar(props: any) {
   const { resetGame, getHistory, undoMove } = useStore();
   const { setStatisticsState } = useAnimationStore();
+  const { getDifficulty } = useSettingsStore();
   const animation = props.animation;
 
   const variants = {
@@ -36,7 +42,7 @@ function StatisticsSidebar(props: any) {
       <div className="font-monospaced md:pl-2 text-lg text-center">
         <div className="flex bg-secondary">
           <div className="flex-1 font-header uppercase text-white p-1">
-            <span>Very easy bot</span>
+            <span>{getDifficulty()} bot</span>
           </div>
           <SettingsButton />
         </div>
