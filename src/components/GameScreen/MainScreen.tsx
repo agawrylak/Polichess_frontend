@@ -14,10 +14,6 @@ export const MainScreen = () => {
   const chess = useStore((state) => state.chess);
   const closeModal = () => setOpen(false);
 
-  useEffect(() => {
-    console.log("Main screen rendered");
-  });
-
   function getWinner() {
     if (chess.in_checkmate()) {
       return chess.turn();
@@ -28,8 +24,6 @@ export const MainScreen = () => {
     if (chess.game_over()) {
       const winner = getWinner();
       if (winner != null) {
-        console.log(winner);
-
         if (winner == "w") {
           setGameOutcomeMessage(GameOutcomeMessage.LOSE);
         } else if (winner == "b") {

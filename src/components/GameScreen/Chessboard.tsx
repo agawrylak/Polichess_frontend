@@ -81,7 +81,6 @@ function Chessboard() {
     if (setMove({ from, to, promotion: "x" })) {
     }
     setLastMove(from, to);
-    console.log(lastMove);
 
     handleAIMove();
   };

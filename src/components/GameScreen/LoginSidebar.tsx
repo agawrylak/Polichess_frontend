@@ -11,8 +11,6 @@ const LoginSidebar = (props: any) => {
   };
 
   function onComplete(definition: AnimationDefinition | any) {
-    console.log(definition);
-
     if (definition.display == "none") {
       setLoginState(SidebarState.HIDDEN);
     } else if (definition.display == "block") {

@@ -41,7 +41,6 @@ const Sidebars = () => {
       if (registerState == SidebarState.VISIBLE) {
         await hideVerticalMenu(registerAnimation);
       }
-      console.log("Im working");
 
       await hideHorizontalMenu(settingsAnimation);
       await showHorizontalMenu(statisticsAnimation);

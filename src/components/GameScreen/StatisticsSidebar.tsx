@@ -16,7 +16,6 @@ function StatisticsSidebar(props: any) {
   };
 
   function onComplete(definition: AnimationDefinition | any) {
-    console.log("ENDED");
     if (definition.display == "none") {
       setStatisticsState(SidebarState.HIDDEN);
     } else if (definition.display == "block") {

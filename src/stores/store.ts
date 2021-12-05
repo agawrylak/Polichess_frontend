@@ -64,8 +64,6 @@ export const useAnimationStore = create<any>((set, get) => ({
         state.statisticsState = SidebarState.HIDDEN_TO_VISIBLE;
         state.settingsState = SidebarState.VISIBLE_TO_HIDDEN;
       }
-      console.log("Settings state = " + state.settingsState);
-      console.log("Statistics state = " + state.statisticsState);
     });
   },
   nextLoginState: () => {
@@ -84,19 +82,16 @@ export const useAnimationStore = create<any>((set, get) => ({
       } else if (state.registerState == SidebarState.HIDDEN) {
         state.registerState = SidebarState.HIDDEN_TO_VISIBLE;
       }
-      console.log("Register state changed by click: " + state.registerState);
     });
   },
   setLoginState: (newValue: SidebarState) => {
     set((state: any) => {
       state.loginState = newValue;
-      console.log("Login state : " + state.loginState);
     });
   },
   setRegisterState: (newValue: SidebarState) => {
     set((state: any) => {
       state.registerState = newValue;
-      console.log("Register state : " + state.registerState);
     });
   },
   setSettingsState: (newValue: SidebarState) => {
