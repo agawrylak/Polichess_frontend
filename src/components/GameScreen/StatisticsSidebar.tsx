@@ -1,15 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { allChessPieces } from "../../shared/board.interface";
 import { Move } from "chess.js";
+import {
+  SidebarState,
+  useAnimationStore,
+  useSettingsStore,
+  useStore,
+} from "../../stores/store";
+import { motion } from "framer-motion";
+import SettingsButton from "./SettingsButton";
+import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
 
-function GameBoardSidebar(props: any) {
+function StatisticsSidebar(props: any) {
+  const { resetGame, getHistory, undoMove } = useStore();
+  const { setStatisticsState } = useAnimationStore();
+  const { getDifficulty } = useSettingsStore();
+  const animation = props.animation;
+
+  const variants = {
+    hidden: { display: "none" },
+  };
+
+  function onComplete(definition: AnimationDefinition | any) {
+    if (definition.display == "none") {
+      setStatisticsState(SidebarState.HIDDEN);
+    } else if (definition.display == "block") {
+      setStatisticsState(SidebarState.VISIBLE);
+    }
+  }
+
   return (
-    <div className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch">
-      <div className="font-monospaced md:pl-2 text-lg text-center">
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate={animation}
+      onAnimationComplete={(definition) => {
+        onComplete(definition);
+      }}
+      className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch"
+    >
+      <div className="font-monospaced text-lg text-center">
         <div className="flex bg-secondary">
-          <div className="flex-1 font-header uppercase text-white p-1">
-            <span>Very easy bot</span>
+          <div className="ml-10 flex-1 font-header uppercase text-white p-1">
+            <span>{getDifficulty()} bot</span>
           </div>
+          <SettingsButton />
         </div>
         <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
           <div className="max-h-96 overflow-y-auto flex grid grid-cols-2 gap-0 ">
@@ -19,34 +54,48 @@ function GameBoardSidebar(props: any) {
                 {" "}
               </div>
             </div>
-            {MoveHistory(props.history)}
+            {MoveHistory(getHistory())}
           </div>
           <div className="flex grid grid-cols-2 gap-0 mt-2">
             <div className="flex flex-grow flex-wrap justify-center justify-items-start">
-              {LostPieces(getCapturedPieces(props.history, "b"))}
+              {LostPieces(getCapturedPieces(getHistory(), "b"))}
             </div>
             <div className="flex flex-grow flex-wrap justify-center justify-items-start	">
-              {LostPieces(getCapturedPieces(props.history, "w"))}
+              {LostPieces(getCapturedPieces(getHistory(), "w"))}
             </div>
           </div>
         </div>
         <div className="flex bg-primary">
           <button
-            onClick={props.resetGame}
-            className="flex-1 font-header uppercase text-white p-1 m-2 ml-20 mr-20 bg-secondary"
+            onClick={resetGame}
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
           >
             <span>Surrender</span>
           </button>
+          <button
+            onClick={undoMove}
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+          >
+            <span>Undo</span>
+          </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 const MoveHistory = (history: any[]) => {
   return history.map((move: any, index: number) => (
     <span className={"w-full text-center " + getColorForOddRow(index)}>
-      <span>{move.piece + move.from + " → " + move.piece + move.to}</span>
+      <span>
+        {(
+          (move.piece != "p" ? move.piece : "") +
+          move.from +
+          " → " +
+          (move.piece != "p" ? move.piece : "") +
+          move.to
+        ).toUpperCase()}
+      </span>
     </span>
   ));
 };
@@ -94,4 +143,4 @@ const getImageForChessPiece = (piece: any) => {
   )?.link;
 };
 
-export default GameBoardSidebar;
+export default StatisticsSidebar;
