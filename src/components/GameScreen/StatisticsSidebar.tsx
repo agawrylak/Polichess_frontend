@@ -87,7 +87,15 @@ function StatisticsSidebar(props: any) {
 const MoveHistory = (history: any[]) => {
   return history.map((move: any, index: number) => (
     <span className={"w-full text-center " + getColorForOddRow(index)}>
-      <span>{move.piece + move.from + " → " + move.piece + move.to}</span>
+      <span>
+        {(
+          (move.piece != "p" ? move.piece : "") +
+          move.from +
+          " → " +
+          (move.piece != "p" ? move.piece : "") +
+          move.to
+        ).toUpperCase()}
+      </span>
     </span>
   ));
 };
