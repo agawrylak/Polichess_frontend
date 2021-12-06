@@ -4,6 +4,8 @@ import { Option } from "../shared/settings.interface";
 import produce from "immer";
 const chessReq: any = require("chess.js");
 const chessLogic: ChessInstance = new chessReq();
+//test win
+//chessLogic.load("8/8/8/8/8/2k5/q5QQ/4K3 w - - 0 2");
 
 export enum SidebarState {
   VISIBLE = "VISIBLE",
@@ -53,7 +55,7 @@ export const useSettingsStore = create<any>((set, get) => ({
 export const useStore = create<any>((set, get) => ({
   chess: chessLogic,
   lastMove: [],
-  playerColor: "w",
+  winner: "",
   getHistory: () => {
     return get().chess.history({ verbose: true });
   },
