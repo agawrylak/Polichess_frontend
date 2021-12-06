@@ -36,11 +36,11 @@ function SettingsSidebar(props: any) {
       onAnimationComplete={(definition) => {
         onComplete(definition);
       }}
-      className="w-screen md:w-96 flex flex-col flex-grow items-stretch z-10"
+      className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch z-10"
     >
       <div className="font-monospaced text-lg text-center">
-        <div className="bg-secondary flex">
-          <div className="ml-10 font-header uppercase text-white p-2 flex-1 ">
+        <div className="flex bg-secondary">
+          <div className="ml-10  flex-1 font-header uppercase text-white p-1">
             <span className="">Settings</span>
           </div>
           <SettingsButton />

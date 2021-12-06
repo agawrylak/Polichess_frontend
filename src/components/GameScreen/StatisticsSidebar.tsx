@@ -39,7 +39,7 @@ function StatisticsSidebar(props: any) {
       }}
       className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch"
     >
-      <div className="font-monospaced md:pl-2 text-lg text-center">
+      <div className="font-monospaced text-lg text-center">
         <div className="flex bg-secondary">
           <div className="ml-10 flex-1 font-header uppercase text-white p-1">
             <span>{getDifficulty()} bot</span>
