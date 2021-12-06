@@ -37,19 +37,25 @@ const RegisterSidebar = (props: any) => {
         </div>
         <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
           <div className="grid grid-cols-1 gap-1 ">
-            <span>Email:</span>
+            <span className="text-black font-black font-header uppercase">
+              Email:
+            </span>
             <input
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="email"
               name="name"
             />
-            <span>Name:</span>
+            <span className="text-black font-black font-header uppercase">
+              Name:
+            </span>
             <input
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="text"
               name="name"
             />
-            <span>Password:</span>
+            <span className="text-black font-black font-header uppercase">
+              Password:
+            </span>
             <input
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="password"

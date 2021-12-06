@@ -19,7 +19,7 @@ const Dropdowns = ({
   dropdownPropsList: DropdownProps[];
 }) => {
   return (
-    <div className="flex grid grid-cols-2 text-center font-bold gap-0 ">
+    <div className="flex grid grid-cols-2 text-center font-bold">
       {dropdownPropsList.map((dropdownProps) => {
         return <Dropdown props={dropdownProps} />;
       })}
@@ -46,7 +46,7 @@ const Dropdown = ({ props }: { props: DropdownProps }) => {
       <div>
         <button
           onClick={openDropdown}
-          className="w-40 font-header uppercase text-white m-1 p-1 bg-secondary"
+          className="w-40 bg-primary text-black font-black font-header uppercase"
         >
           <span>{props.label}</span>
         </button>
@@ -83,7 +83,7 @@ const ListItem = ({ option, dropdownLabel }: OptionProps) => {
   return (
     <div>
       <button onClick={onClickSetOption}>
-        <div className="bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary w-32 m-1">
+        <div className="bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary w-32 mb-1">
           <span className={isSelected ? "font-bold " : "font-normal"}>
             {option.label}
           </span>
