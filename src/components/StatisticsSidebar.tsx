@@ -12,14 +12,25 @@ import SettingsButton from "./SettingsButton";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
 
 function StatisticsSidebar(props: any) {
-  const { resetGame, getHistory, undoMove } = useStore();
+  const { resetGame, getHistory, undoMove, setAiFirst } = useStore();
   const { setStatisticsState } = useAnimationStore();
   const { getDifficulty } = useSettingsStore();
   const animation = props.animation;
+  const { getOptionValue } = useSettingsStore();
+  const playerColor = getOptionValue("Play as");
 
   const variants = {
     hidden: { display: "none" },
   };
+
+  function onClickSurrender() {
+    resetGame();
+    if (playerColor == "b") {
+      setAiFirst(true);
+    } else if (playerColor == "w") {
+      setAiFirst(false);
+    }
+  }
 
   function onComplete(definition: AnimationDefinition | any) {
     if (definition.display == "none") {
@@ -48,7 +59,7 @@ function StatisticsSidebar(props: any) {
         </div>
         <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
           <div className="max-h-96 overflow-y-auto flex grid grid-cols-2 gap-0 ">
-            <div className="col-span-2 grid grid-cols-2">
+            <div className="col-span-2 grid grid-cols-2 ml-2 mr-2">
               <div className={"mx-auto w-full h-6 bg-white mb-2 text-center"} />
               <div className={"mx-auto w-full h-6 bg-black mb-2 text-center"}>
                 {" "}
@@ -67,7 +78,7 @@ function StatisticsSidebar(props: any) {
         </div>
         <div className="flex bg-primary">
           <button
-            onClick={resetGame}
+            onClick={onClickSurrender}
             className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
           >
             <span>Surrender</span>
@@ -88,13 +99,11 @@ const MoveHistory = (history: any[]) => {
   return history.map((move: any, index: number) => (
     <span className={"w-full text-center " + getColorForOddRow(index)}>
       <span>
-        {(
-          (move.piece != "p" ? move.piece : "") +
+        {(move.piece != "p" ? move.piece : "").toUpperCase() +
           move.from +
           " → " +
-          (move.piece != "p" ? move.piece : "") +
-          move.to
-        ).toUpperCase()}
+          (move.piece != "p" ? move.piece : "").toUpperCase() +
+          move.to}
       </span>
     </span>
   ));

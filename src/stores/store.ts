@@ -66,8 +66,15 @@ export const useStore = create<any>((set, get) => ({
   chess: chessLogic,
   lastMove: [],
   winner: "",
+  aiFirst: false,
   getHistory: () => {
     return get().chess.history({ verbose: true });
+  },
+  setAiFirst: (newValue: boolean) => {
+    set((state: any) => {
+      console.log(newValue);
+      state.aiFirst = newValue;
+    });
   },
   setMove: (move: any) => {
     set((state: any) => {

@@ -17,10 +17,10 @@ import useAsyncEffect from "use-async-effect";
 const getMaxWidth = () => {
   let maxSize = 900;
   if (window.innerWidth < maxSize) {
-    maxSize = window.innerWidth - 20;
+    maxSize = window.innerWidth;
   }
   if (window.innerHeight < maxSize) {
-    maxSize = window.innerHeight - 20;
+    maxSize = window.innerHeight;
   }
   return maxSize;
 };
@@ -34,6 +34,8 @@ function Chessboard() {
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
   const [open, setOpen] = useState(false);
   const [orientation, setOrientation] = useState("white");
+  const aiFirst = useStore((state) => state.aiFirst);
+  const { setAiFirst } = useStore();
 
   const [gameOutcomeMessage, setGameOutcomeMessage] = useState(
     GameOutcomeMessage.IN_PROGRESS
@@ -51,6 +53,14 @@ function Chessboard() {
     handleColorChange();
   }, [playerColor]);
 
+  useEffect(() => {
+    console.log("works");
+    if (aiFirst) {
+      handleAIMove();
+      setAiFirst(false);
+    }
+  }, [aiFirst]);
+
   async function handleColorChange() {
     if (playerColor == "w") {
       resetGame();
@@ -60,7 +70,7 @@ function Chessboard() {
       resetGame();
       await timeout(100);
       setOrientation("black");
-      handleAIMove();
+      setAiFirst(true);
     }
   }
 
@@ -114,7 +124,7 @@ function Chessboard() {
     return {
       free: false,
       dests,
-      color: playerColor == "w" ? "white" : "black",
+      color: orientation,
     };
   };
 
@@ -124,7 +134,6 @@ function Chessboard() {
     API.aiMove(fen, difficulty)
       .then((response: any) => {
         let aiMove = response.data;
-
         setMove({
           from: aiMove.substr(0, 2),
           to: aiMove.substr(2, 2),
@@ -150,7 +159,6 @@ function Chessboard() {
     if (setMove({ from, to, promotion: "q" })) {
     }
     setLastMove(from, to);
-
     handleAIMove();
     handleMatchOutcome();
   };
@@ -162,7 +170,6 @@ function Chessboard() {
         height={maxWidth}
         fen={getFen()}
         onMove={onMove}
-        style={{ margin: "auto" }}
         turnColor={turnColor()}
         movable={calcMovable()}
         lastMove={lastMove}
