@@ -15,21 +15,31 @@ export enum SidebarState {
 }
 
 export const useSettingsStore = create<any>((set, get) => ({
+  token: "",
+  user: "",
   options: [
     { label: "Difficulty", value: 3 },
     { label: "Show moves", value: true },
     { label: "Language", value: "en_us" },
     { label: "Play as", value: "w" },
   ],
+  setToken: (newValue: any) => {
+    set((state: any) => {
+      state.token = newValue;
+    });
+  },
+  setUser: (newValue: any) => {
+    set((state: any) => {
+      state.user = newValue;
+    });
+  },
   setOption: (label: string, newValue: any) => {
-    set(
-      produce((state: any) => {
-        const option = state.options.find(
-          (option: Option) => option.label == label
-        );
-        option.value = newValue;
-      })
-    );
+    set((state: any) => {
+      const option = state.options.find(
+        (option: Option) => option.label == label
+      );
+      option.value = newValue;
+    });
   },
   getOptionValue: (label: string) => {
     return get().options.find((option: Option) => option.label == label).value;
@@ -61,7 +71,7 @@ export const useStore = create<any>((set, get) => ({
   },
   setMove: (move: any) => {
     set((state: any) => {
-      state.chess.move(move);
+      state.chess.move(move, { sloppy: true });
       state.isSettingsSidebarVisible = false;
       state.isLoginSidebarVisible = false;
       state.isRegisterSidebarVisible = false;
@@ -88,6 +98,11 @@ export const useStore = create<any>((set, get) => ({
     set((state: any) => {
       state.chess.reset();
       state.lastMove = [];
+    });
+  },
+  setFen: (newValue: string) => {
+    set((state: any) => {
+      console.log(state.chess.load(newValue));
     });
   },
 }));

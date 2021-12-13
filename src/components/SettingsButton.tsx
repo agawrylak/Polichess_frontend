@@ -1,6 +1,6 @@
 import React from "react";
 import { Settings } from "react-feather";
-import { useAnimationStore, useStore } from "../../stores/store";
+import { useAnimationStore, useStore } from "../stores/store";
 
 function SettingsButton() {
   const { nextSidebarState } = useAnimationStore();

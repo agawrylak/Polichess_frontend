@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { SidebarState, useAnimationStore, useStore } from "../../stores/store";
+import { SidebarState, useAnimationStore, useStore } from "../stores/store";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
+import ErrorMessage from "./ErrorMessage";
+import { API } from "../api/API";
+import { AxiosResponse } from "axios";
 
 const RegisterSidebar = (props: any) => {
   const animation = props.animation;
   const { setRegisterState } = useAnimationStore();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const variants = {
     hidden: { display: "none" },
@@ -17,6 +24,19 @@ const RegisterSidebar = (props: any) => {
     } else if (definition.display == "block") {
       setRegisterState(SidebarState.VISIBLE);
     }
+  }
+
+  function onClickRegister() {
+    setErrorMessage("");
+    API.register(username, password, email)
+      .then((response: AxiosResponse<any>) => {
+        setErrorMessage("Registered successfully"); //TODO: FIX THIS
+        console.log(response);
+      })
+      .catch((error: any) => {
+        console.log(error);
+        setErrorMessage("Register failed");
+      });
   }
 
   return (
@@ -36,6 +56,7 @@ const RegisterSidebar = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
+          <ErrorMessage errorMessage={errorMessage} />
           <div className="grid grid-cols-1 gap-1 ">
             <span className="text-black font-black font-header uppercase">
               Email:
@@ -44,6 +65,7 @@ const RegisterSidebar = (props: any) => {
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="email"
               name="name"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <span className="text-black font-black font-header uppercase">
               Name:
@@ -52,6 +74,7 @@ const RegisterSidebar = (props: any) => {
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="text"
               name="name"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <span className="text-black font-black font-header uppercase">
               Password:
@@ -60,10 +83,14 @@ const RegisterSidebar = (props: any) => {
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="password"
               name="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
-        <button className="w-40 font-header uppercase text-white m-2 p-1 bg-secondary">
+        <button
+          onClick={onClickRegister}
+          className="w-40 font-header uppercase text-white m-2 p-1 bg-secondary"
+        >
           <span>Submit</span>
         </button>
       </div>

@@ -4,14 +4,14 @@ import {
   DropdownProps,
   Option,
   OptionProps,
-} from "../../shared/settings.interface";
-import { useSettingsStore } from "../../stores/store";
+} from "../shared/settings.interface";
+import { useSettingsStore } from "../stores/store";
 import { useAnimation } from "framer-motion";
 import { motion } from "framer-motion";
 import {
   hideVerticalMenuDropdown,
   showVerticalMenuDropdown,
-} from "../../utils/AnimationUtils";
+} from "../utils/AnimationUtils";
 
 const Dropdowns = ({
   dropdownPropsList,

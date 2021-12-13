@@ -4,13 +4,13 @@ import StatisticsSidebar from "./StatisticsSidebar";
 import LoginSidebar from "./LoginSidebar";
 import RegisterSidebar from "./RegisterSidebar";
 import { useAnimation } from "framer-motion";
-import { SidebarState, useAnimationStore } from "../../stores/store";
+import { SidebarState, useAnimationStore } from "../stores/store";
 import {
   hideHorizontalMenu,
   hideVerticalMenu,
   showHorizontalMenu,
   showVerticalMenu,
-} from "../../utils/AnimationUtils";
+} from "../utils/AnimationUtils";
 import useAsyncEffect from "use-async-effect";
 
 const Sidebars = () => {

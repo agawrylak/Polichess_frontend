@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
-import { SidebarState, useAnimationStore } from "../../stores/store";
+import {
+  SidebarState,
+  useAnimationStore,
+  useSettingsStore,
+} from "../stores/store";
+import { API } from "../api/API";
+import { AxiosResponse } from "axios";
+import ErrorMessage from "./ErrorMessage";
 
 const LoginSidebar = (props: any) => {
   const { setLoginState } = useAnimationStore();
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const { setUser, setToken } = useSettingsStore();
 
   const variants = {
     hidden: { display: "none" },
@@ -16,6 +27,20 @@ const LoginSidebar = (props: any) => {
     } else if (definition.display == "block") {
       setLoginState(SidebarState.VISIBLE);
     }
+  }
+
+  function onClickLogin() {
+    setErrorMessage("");
+    API.login(username, password)
+      .then((response: AxiosResponse<any>) => {
+        setUser(response.data.username);
+        setToken(response.data.accessToken);
+        setLoginState(SidebarState.VISIBLE_TO_HIDDEN);
+      })
+      .catch((error: any) => {
+        console.log(error);
+        setErrorMessage("Login failed");
+      });
   }
 
   return (
@@ -35,6 +60,7 @@ const LoginSidebar = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
+          <ErrorMessage errorMessage={errorMessage} />
           <div className="grid grid-cols-1 gap-1 ">
             <span className="text-black font-black font-header uppercase">
               Name:
@@ -43,6 +69,7 @@ const LoginSidebar = (props: any) => {
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="text"
               name="name"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <span className="text-black font-black font-header uppercase">
               Password:
@@ -51,10 +78,14 @@ const LoginSidebar = (props: any) => {
               className="ml-28 mr-28 bg-background border-solid border-opacity-100 rounded-none border-2 border-secondary"
               type="password"
               name="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
-        <button className="w-40 font-header uppercase text-white m-2 p-1 bg-secondary">
+        <button
+          onClick={onClickLogin}
+          className="w-40 font-header uppercase text-white m-2 p-1 bg-secondary"
+        >
           <span>Submit</span>
         </button>
       </div>

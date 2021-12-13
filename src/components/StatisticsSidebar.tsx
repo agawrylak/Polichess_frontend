@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { allChessPieces } from "../../shared/board.interface";
+import { allChessPieces } from "../shared/board.interface";
 import { Move } from "chess.js";
 import {
   SidebarState,
   useAnimationStore,
   useSettingsStore,
   useStore,
-} from "../../stores/store";
+} from "../stores/store";
 import { motion } from "framer-motion";
 import SettingsButton from "./SettingsButton";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
