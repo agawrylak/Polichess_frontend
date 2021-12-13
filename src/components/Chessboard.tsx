@@ -54,7 +54,6 @@ function Chessboard() {
   }, [playerColor]);
 
   useEffect(() => {
-    console.log("works");
     if (aiFirst) {
       handleAIMove();
       setAiFirst(false);
