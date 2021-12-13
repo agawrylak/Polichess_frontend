@@ -12,6 +12,7 @@ import { GameOutcomeMessage } from "../shared/board.interface";
 import WinnerModal from "./WinnerModal";
 import Popup from "reactjs-popup";
 import { API } from "../api/API";
+import useAsyncEffect from "use-async-effect";
 
 const getMaxWidth = () => {
   let maxSize = 900;
@@ -32,6 +33,8 @@ function Chessboard() {
   const statisticsState = useAnimationStore((state) => state.statisticsState);
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
   const [open, setOpen] = useState(false);
+  const [orientation, setOrientation] = useState("white");
+
   const [gameOutcomeMessage, setGameOutcomeMessage] = useState(
     GameOutcomeMessage.IN_PROGRESS
   );
@@ -44,17 +47,25 @@ function Chessboard() {
     resetGame();
   };
 
-  useEffect(() => {
+  useAsyncEffect(() => {
     handleColorChange();
   }, [playerColor]);
 
-  function handleColorChange() {
+  async function handleColorChange() {
     if (playerColor == "w") {
       resetGame();
+      await timeout(100);
+      setOrientation("white");
     } else if (playerColor == "b") {
       resetGame();
+      await timeout(100);
+      setOrientation("black");
       handleAIMove();
     }
+  }
+
+  function timeout(delay: number) {
+    return new Promise((res) => setTimeout(res, delay));
   }
 
   function handleMatchOutcome() {
@@ -157,7 +168,7 @@ function Chessboard() {
         lastMove={lastMove}
         premovable={{ enabled: false }}
         coordinates={false}
-        orientation={playerColor == "w" ? "white" : "black"}
+        orientation={orientation}
       />
       <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
         <WinnerModal outcome={gameOutcomeMessage} />
