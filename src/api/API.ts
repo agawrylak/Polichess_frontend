@@ -1,7 +1,8 @@
 import axios from "axios";
 const aiModuleURL = "https://quiet-gorge-99239.herokuapp.com/";
-//const backendURL = "https://glacial-cliffs-16329.herokuapp.com/";
-const backendURL = "http://localhost:8081/";
+const backendURL = "https://glacial-cliffs-16329.herokuapp.com/";
+// TODO: GET RID OF THIS AFTER WE MAKE SURE APP IS WORKING CORRECTLY
+//const backendURL = "http://localhost:8081/";
 
 const authURL = backendURL + "api/auth/";
 export class API {
