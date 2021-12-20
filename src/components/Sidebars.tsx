@@ -168,7 +168,7 @@ const Sidebars = () => {
 
   return (
     <div className="w-screen md:w-96 flex flex-col flex-grow items-stretch z-10">
-      <span className="font-header text-5xl font-bold">PoliChess</span>
+      <span className="hidden md:block text-5xl font-bold">PoliChess</span>
       <div className="z-20  relative">
         <SettingsSidebar animation={settingsAnimation} />
         <StatisticsSidebar animation={statisticsAnimation} />
