@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { SidebarState, useAnimationStore, useStore } from "../stores/store";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
 import ErrorMessage from "./ErrorMessage";
 import { API } from "../api/API";
 import { AxiosResponse } from "axios";
+import { useAnimationStore } from "../stores/AnimationStore";
+import { SidebarState } from "../utils/AnimationUtils";
 
 const RegisterSidebar = (props: any) => {
   const animation = props.animation;
@@ -43,7 +44,7 @@ const RegisterSidebar = (props: any) => {
     <motion.div
       variants={variants}
       initial="hidden"
-      animate={props.animation}
+      animate={animation}
       onAnimationComplete={(definition) => {
         onComplete(definition);
       }}

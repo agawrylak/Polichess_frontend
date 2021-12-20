@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
-import {
-  SidebarState,
-  useAnimationStore,
-  useSettingsStore,
-} from "../stores/store";
+
 import { API } from "../api/API";
 import { AxiosResponse } from "axios";
 import ErrorMessage from "./ErrorMessage";
+import { useAnimationStore } from "../stores/AnimationStore";
+import { useSettingsStore } from "../stores/SettingsStore";
+import { AnimationAction, SidebarState } from "../utils/AnimationUtils";
 
 const LoginSidebar = (props: any) => {
-  const { setLoginState } = useAnimationStore();
+  const { setLoginState, setAccountAction } = useAnimationStore();
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +34,7 @@ const LoginSidebar = (props: any) => {
       .then((response: AxiosResponse<any>) => {
         setUser(response.data.username);
         setToken(response.data.accessToken);
-        setLoginState(SidebarState.VISIBLE_TO_HIDDEN);
+        setAccountAction(AnimationAction.SHOW);
       })
       .catch((error: any) => {
         console.log(error);

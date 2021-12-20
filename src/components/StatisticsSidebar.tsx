@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { allChessPieces } from "../shared/board.interface";
 import { Move } from "chess.js";
-import {
-  SidebarState,
-  useAnimationStore,
-  useSettingsStore,
-  useStore,
-} from "../stores/store";
 import { motion } from "framer-motion";
 import SettingsButton from "./SettingsButton";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
+import { useSettingsStore } from "../stores/SettingsStore";
+import { useAnimationStore } from "../stores/AnimationStore";
+import { useChessStore } from "../stores/ChessStore";
+import { AnimationAction, SidebarState } from "../utils/AnimationUtils";
+import { getFenFromHistory } from "../utils/ChessUtils";
 
 function StatisticsSidebar(props: any) {
-  const { resetGame, getHistory, undoMove, setAiFirst } = useStore();
-  const { setStatisticsState } = useAnimationStore();
+  const { resetGame, getHistory, undoMove, setAiFirst } = useChessStore();
+  const { setStatisticsState, setSettingsAction } = useAnimationStore();
   const { getDifficulty } = useSettingsStore();
   const animation = props.animation;
   const { getOptionValue } = useSettingsStore();
@@ -40,6 +39,10 @@ function StatisticsSidebar(props: any) {
     }
   }
 
+  function onClickSettings() {
+    setSettingsAction(AnimationAction.SHOW);
+  }
+
   return (
     <motion.div
       variants={variants}
@@ -55,7 +58,7 @@ function StatisticsSidebar(props: any) {
           <div className="ml-10 flex-1 font-header uppercase text-white p-1">
             <span>{getDifficulty()} bot</span>
           </div>
-          <SettingsButton />
+          <SettingsButton setState={onClickSettings} />
         </div>
         <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
           <div className="max-h-96 overflow-y-auto flex grid grid-cols-2 gap-0 ">
@@ -96,16 +99,35 @@ function StatisticsSidebar(props: any) {
 }
 
 const MoveHistory = (history: any[]) => {
+  const chess = useChessStore((state) => state.chess);
+  const { setChess, setAiFirst } = useChessStore();
+  function onClick(event: any) {
+    const id = event.currentTarget.value;
+    chess.reset();
+    for (let i = 0; i <= id; i++) {
+      const move = history[i];
+      chess.move({ from: move.from, to: move.to });
+    }
+    setChess(chess);
+    if (id % 2 == 0) {
+      setAiFirst(true);
+    }
+  }
   return history.map((move: any, index: number) => (
-    <span className={"w-full text-center " + getColorForOddRow(index)}>
-      <span>
-        {(move.piece != "p" ? move.piece : "").toUpperCase() +
-          move.from +
-          " → " +
-          (move.piece != "p" ? move.piece : "").toUpperCase() +
-          move.to}
-      </span>
-    </span>
+    //TODO: CSS DOES NOT WORK ON BUTTON
+    <button
+      onClick={onClick}
+      value={index}
+      className={
+        "hover:bg-secondary w-full text-center " + getColorForOddRow(index)
+      }
+    >
+      {(move.piece != "p" ? move.piece : "").toUpperCase() +
+        move.from +
+        " → " +
+        (move.piece != "p" ? move.piece : "").toUpperCase() +
+        move.to}
+    </button>
   ));
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSettingsStore } from "../stores/store";
+import { useSettingsStore } from "../stores/SettingsStore";
 
 const LoginStatus = () => {
   const username = useSettingsStore((state) => state.user);

@@ -5,13 +5,10 @@ import {
   Option,
   OptionProps,
 } from "../shared/settings.interface";
-import { useSettingsStore } from "../stores/store";
 import { useAnimation } from "framer-motion";
 import { motion } from "framer-motion";
-import {
-  hideVerticalMenuDropdown,
-  showVerticalMenuDropdown,
-} from "../utils/AnimationUtils";
+import { hideDropdown, showDropdown } from "../utils/AnimationUtils";
+import { useSettingsStore } from "../stores/SettingsStore";
 
 const Dropdowns = ({
   dropdownPropsList,
@@ -32,9 +29,9 @@ const Dropdown = ({ props }: { props: DropdownProps }) => {
   async function openDropdown() {
     setOpen(!open);
     if (open) {
-      hideVerticalMenuDropdown(animation);
+      await hideDropdown(animation);
     } else {
-      showVerticalMenuDropdown(animation);
+      await showDropdown(animation);
     }
   }
   const variants = {

@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  SidebarState,
-  useAnimationStore,
-  useSettingsStore,
-  useStore,
-} from "../stores/store";
 // @ts-ignore
 import Chessground from "react-chessground";
 import "react-chessground/dist/styles/chessground.css";
@@ -13,6 +7,10 @@ import WinnerModal from "./WinnerModal";
 import Popup from "reactjs-popup";
 import { API } from "../api/API";
 import useAsyncEffect from "use-async-effect";
+import { useChessStore } from "../stores/ChessStore";
+import { useAnimationStore } from "../stores/AnimationStore";
+import { useSettingsStore } from "../stores/SettingsStore";
+import { AnimationAction, SidebarState } from "../utils/AnimationUtils";
 
 const getMaxWidth = () => {
   let maxSize = 900;
@@ -26,24 +24,25 @@ const getMaxWidth = () => {
 };
 
 function Chessboard() {
-  const chess = useStore((state) => state.chess);
-  const lastMove = useStore((state) => state.lastMove);
-  const { setMove, setLastMove, resetGame } = useStore();
-  const { nextSidebarState } = useAnimationStore();
+  const chess = useChessStore((state) => state.chess);
+  const lastMove = useChessStore((state) => state.lastMove);
+  const { setMove, setLastMove, resetGame } = useChessStore();
+  const { setFen } = useChessStore();
+  const options = useChessStore((state) => state.options);
+  const aiFirst = useChessStore((state) => state.aiFirst);
+  const { setAiFirst } = useChessStore();
+  const { setStatisticsAction } = useAnimationStore();
   const statisticsState = useAnimationStore((state) => state.statisticsState);
+  const { getOptionValue } = useSettingsStore();
+  const playerColor = getOptionValue("Play as");
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
   const [open, setOpen] = useState(false);
   const [orientation, setOrientation] = useState("white");
-  const aiFirst = useStore((state) => state.aiFirst);
-  const { setAiFirst } = useStore();
-
   const [gameOutcomeMessage, setGameOutcomeMessage] = useState(
     GameOutcomeMessage.IN_PROGRESS
   );
-  const { getOptionValue } = useSettingsStore();
-  const playerColor = getOptionValue("Play as");
-  const { setFen } = useStore();
-  const options = useStore((state) => state.options);
+  const [isChecked, setChecked] = useState(false);
+
   const closeModal = () => {
     setOpen(false);
     resetGame();
@@ -60,21 +59,19 @@ function Chessboard() {
     }
   }, [aiFirst]);
 
-  async function handleColorChange() {
+  useEffect(() => {
+    handleCheck();
+  }, [lastMove]);
+
+  function handleColorChange() {
     if (playerColor == "w") {
       resetGame();
-      await timeout(100);
       setOrientation("white");
     } else if (playerColor == "b") {
       resetGame();
-      await timeout(100);
       setOrientation("black");
       setAiFirst(true);
     }
-  }
-
-  function timeout(delay: number) {
-    return new Promise((res) => setTimeout(res, delay));
   }
 
   function handleMatchOutcome() {
@@ -127,6 +124,14 @@ function Chessboard() {
     };
   };
 
+  function handleCheck() {
+    if (chess.in_check()) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }
+
   function handleAIMove() {
     const fen = chess.fen();
     const difficulty = getOptionValue("Difficulty");
@@ -138,6 +143,7 @@ function Chessboard() {
           to: aiMove.substr(2, 2),
           promotion: "q",
         });
+        handleCheck();
         handleMatchOutcome();
       })
       .catch((error: any) => {
@@ -147,7 +153,7 @@ function Chessboard() {
 
   const onMove = (from: any, to: any) => {
     if (statisticsState == SidebarState.HIDDEN) {
-      nextSidebarState();
+      setStatisticsAction(AnimationAction.SHOW);
     }
     const moves = chess.moves({ verbose: true });
     for (let i = 0, len = moves.length; i < len; i++) {
@@ -158,6 +164,7 @@ function Chessboard() {
     if (setMove({ from, to, promotion: "q" })) {
     }
     setLastMove(from, to);
+    handleCheck();
     handleAIMove();
     handleMatchOutcome();
   };
@@ -172,12 +179,17 @@ function Chessboard() {
         turnColor={turnColor()}
         movable={calcMovable()}
         lastMove={lastMove}
+        check={isChecked}
+        highlight={{
+          lastMove: true,
+          check: true,
+        }}
         premovable={{ enabled: false }}
         coordinates={false}
         orientation={orientation}
       />
       <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
-        <WinnerModal outcome={gameOutcomeMessage} />
+        <WinnerModal closeModal={closeModal} outcome={gameOutcomeMessage} />
       </Popup>
     </div>
   );

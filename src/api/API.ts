@@ -1,6 +1,8 @@
 import axios from "axios";
 const aiModuleURL = "https://quiet-gorge-99239.herokuapp.com/";
-const backendURL = "https://glacial-cliffs-16329.herokuapp.com/";
+//const backendURL = "https://glacial-cliffs-16329.herokuapp.com/";
+const backendURL = "http://localhost:8081/";
+
 const authURL = backendURL + "api/auth/";
 export class API {
   static login(username: string, password: string) {
@@ -29,5 +31,42 @@ export class API {
       },
     };
     return axios.post(aiModuleURL + "calculate_move", body);
+  }
+
+  static getGameHistory(token: string) {
+    console.log(token);
+    return axios.get(backendURL + "games/", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+  }
+
+  static getUserGames(token: string) {
+    return axios.get(backendURL + "games/usergames", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+  }
+
+  static saveGameHistory(token: string, history: any[], winner: string) {
+    return axios.post(
+      backendURL + "games/add",
+      { moves: history, winner },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+  }
+
+  static getGameHistoryById(token: string, id: string) {
+    return axios.get(backendURL + "games/id/" + id, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
   }
 }

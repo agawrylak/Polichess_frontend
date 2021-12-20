@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import SettingsButton from "./SettingsButton";
-import {
-  SidebarState,
-  useAnimationStore,
-  useSettingsStore,
-} from "../stores/store";
 import { AnimationDefinition } from "framer-motion/types/render/utils/animation";
 import Dropdowns from "./Dropdowns";
 import { settings } from "../shared/settings.interface";
-import LoginStatus from "./LoginStatus";
+import { useAnimationStore } from "../stores/AnimationStore";
+import { useSettingsStore } from "../stores/SettingsStore";
+import { AnimationAction, SidebarState } from "../utils/AnimationUtils";
 
 function SettingsSidebar(props: any) {
   const animation = props.animation;
-  const { setSettingsState } = useAnimationStore();
-  const user = useSettingsStore((state) => state.user);
+  const { setSettingsState, setStatisticsAction } = useAnimationStore();
 
   function onComplete(definition: AnimationDefinition | any) {
     if (definition.display == "none") {
@@ -25,11 +21,11 @@ function SettingsSidebar(props: any) {
   }
 
   const variants = {
-    hidden: { display: "block" },
+    hidden: { display: "none" },
   };
 
-  function isLoggedIn() {
-    return user != "";
+  function onClickSettings() {
+    setStatisticsAction(AnimationAction.SHOW);
   }
 
   return (
@@ -47,18 +43,15 @@ function SettingsSidebar(props: any) {
           <div className="ml-10  flex-1 font-header uppercase text-white p-1">
             <span className="">Settings</span>
           </div>
-          <SettingsButton />
+          <SettingsButton setState={onClickSettings} />
         </div>
         <div>
           <div className="bg-primary ">
-            <div>
-              <LoginStatus />
-            </div>
             <div className="pt-2">
               <Dropdowns dropdownPropsList={settings} />
             </div>
           </div>
-          {isLoggedIn() ? <LogoutButton /> : <SignButtons />}
+          <SignButtons />
         </div>
       </div>
     </motion.div>
@@ -66,46 +59,70 @@ function SettingsSidebar(props: any) {
 }
 
 const SignButtons = () => {
-  const { nextLoginState, nextRegisterState } = useAnimationStore();
+  const loginState = useAnimationStore((state) => state.loginState);
+  const registerState = useAnimationStore((state) => state.registerState);
+  const accountState = useAnimationStore((state) => state.accountState);
+  const { setLoginAction, setRegisterAction, setAccountAction } =
+    useAnimationStore();
+  const user = useSettingsStore((state) => state.user);
+  const token = useSettingsStore((state) => state.token);
 
-  return (
-    <div className="flex bg-primary">
-      <button
-        onClick={nextLoginState}
-        className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
-      >
-        <span>Login</span>
-      </button>
-      <button
-        onClick={nextRegisterState}
-        className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
-      >
-        <span>Register</span>
-      </button>
-    </div>
-  );
-};
-
-const LogoutButton = () => {
-  const { setLoginState } = useAnimationStore();
-  const { setUser, setToken } = useSettingsStore();
-
-  function onClickLogout() {
-    setLoginState(SidebarState.VISIBLE_TO_HIDDEN);
-    setUser("");
-    setToken("");
+  function isLoggedIn() {
+    return user != "";
   }
 
-  return (
-    <div className="flex bg-primary">
-      <button
-        onClick={onClickLogout}
-        className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
-      >
-        <span>Logout</span>
-      </button>
-    </div>
-  );
+  function onClickLogin() {
+    if (loginState == SidebarState.VISIBLE) {
+      setLoginAction(AnimationAction.HIDE);
+    } else if (loginState == SidebarState.HIDDEN) {
+      setLoginAction(AnimationAction.SHOW);
+    }
+  }
+
+  function onClickRegister() {
+    if (registerState == SidebarState.VISIBLE) {
+      setRegisterAction(AnimationAction.HIDE);
+    } else if (registerState == SidebarState.HIDDEN) {
+      setRegisterAction(AnimationAction.SHOW);
+    }
+  }
+
+  function onClickAccount() {
+    if (accountState == SidebarState.VISIBLE) {
+      setAccountAction(AnimationAction.HIDE);
+    } else if (accountState == SidebarState.HIDDEN) {
+      setAccountAction(AnimationAction.SHOW);
+    }
+  }
+  if (token == "") {
+    return (
+      <div className="flex bg-primary">
+        <button
+          onClick={onClickLogin}
+          className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+        >
+          <span>Login</span>
+        </button>
+        <button
+          onClick={onClickRegister}
+          className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+        >
+          <span>Register</span>
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="flex bg-primary pl-20 pr-20">
+        <button
+          onClick={onClickAccount}
+          className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary "
+        >
+          <span>Account</span>
+        </button>
+      </div>
+    );
+  }
 };
 
 export default SettingsSidebar;
