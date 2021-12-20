@@ -20,9 +20,9 @@ const HistorySidebar = (props: any) => {
   const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
+    console.log(gameHistory.length);
     if (token != "" && isVisible) {
       API.getUserGames(token).then((response) => {
-        console.log(response.data);
         setGameHistory(response.data);
       });
     }
@@ -69,7 +69,11 @@ const HistorySidebar = (props: any) => {
           <SettingsButton setState={setAction} />
         </div>
         <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
-          <MatchHistory gameHistory={gameHistory} />
+          {gameHistory.length != 0 ? (
+            <MatchHistory gameHistory={gameHistory} />
+          ) : (
+            <span className="pb-4">You do not have any match history yet.</span>
+          )}
         </div>
       </div>
     </motion.div>
