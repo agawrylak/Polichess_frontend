@@ -35,16 +35,30 @@ const WinnerModal = (props: any) => {
   const SaveGameHistory = () => {
     return (
       <div>
-        Do you want to save?
-        <button onClick={onClickYes}>YES</button>
-        <button>NO</button>
+        <span>Do you want to save the game?</span>
+        <div className="flex p-1">
+          <button
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+            onClick={onClickYes}
+          >
+            YES
+          </button>
+          <button
+            className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
+            onClick={onClickNo}
+          >
+            NO
+          </button>
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="p-4">
-      {props.outcome}
+    <div className="bg-primary ">
+      <span className="font-header uppercase text-3xl font-black">
+        {props.outcome}
+      </span>
       {token != "" ? <SaveGameHistory /> : null}
     </div>
   );

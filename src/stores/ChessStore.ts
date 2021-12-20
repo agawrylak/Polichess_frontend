@@ -58,6 +58,11 @@ export const useChessStore = create<any>((set, get) => ({
       state.lastMove = [];
     });
   },
+  resetLastMove: () => {
+    set((state: any) => {
+      state.lastMove = [];
+    });
+  },
   setFen: (newValue: string) => {
     set((state: any) => {
       console.log(state.chess.load(newValue));

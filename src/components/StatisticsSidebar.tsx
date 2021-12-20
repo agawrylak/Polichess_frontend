@@ -100,7 +100,7 @@ function StatisticsSidebar(props: any) {
 
 const MoveHistory = (history: any[]) => {
   const chess = useChessStore((state) => state.chess);
-  const { setChess, setAiFirst } = useChessStore();
+  const { setChess, setAiFirst, resetLastMove } = useChessStore();
   function onClick(event: any) {
     const id = event.currentTarget.value;
     chess.reset();

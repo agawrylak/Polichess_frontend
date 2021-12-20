@@ -27,8 +27,6 @@ function Chessboard() {
   const chess = useChessStore((state) => state.chess);
   const lastMove = useChessStore((state) => state.lastMove);
   const { setMove, setLastMove, resetGame } = useChessStore();
-  const { setFen } = useChessStore();
-  const options = useChessStore((state) => state.options);
   const aiFirst = useChessStore((state) => state.aiFirst);
   const { setAiFirst } = useChessStore();
   const { setStatisticsAction } = useAnimationStore();
@@ -168,9 +166,16 @@ function Chessboard() {
     handleAIMove();
     handleMatchOutcome();
   };
+  const contentStyle = {
+    background: "#f8dcb4",
+    border: "solid",
+    borderColor: "#b88c64",
+  };
+  const overlayStyle = { background: "rgba(0,0,0,0.5)" };
+  const arrowStyle = { color: "#f8dcb4" }; // style for an svg element
 
   return (
-    <div className="mr-4 mb-4 static z-30">
+    <div className="mr-4 mb-4 static z-30 bg-primary">
       <Chessground
         width={maxWidth}
         height={maxWidth}
@@ -180,15 +185,21 @@ function Chessboard() {
         movable={calcMovable()}
         lastMove={lastMove}
         check={isChecked}
-        highlight={{
-          lastMove: true,
-          check: true,
-        }}
         premovable={{ enabled: false }}
         coordinates={false}
         orientation={orientation}
       />
-      <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
+      <Popup
+        open={open}
+        {...{
+          contentStyle,
+          overlayStyle,
+          arrowStyle,
+        }}
+        closeOnDocumentClick
+        onClose={closeModal}
+        modal
+      >
         <WinnerModal closeModal={closeModal} outcome={gameOutcomeMessage} />
       </Popup>
     </div>

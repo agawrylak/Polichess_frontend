@@ -105,9 +105,10 @@ const Match = (props: any) => {
   }
   return (
     <div>
-      <div className="block pb-2 text-center">
+      <div className="block pb-2 text-center ">
         <div>
           <span className="pr-2">
+            {"Time:"}
             {props.match.date
               ? format(parseISO(props.match.date), "yyyy-MM-dd HH:mm")
               : "Date unknown"}
@@ -115,7 +116,7 @@ const Match = (props: any) => {
         </div>
         <div>
           <span>
-            {props.match.winner ? props.match.winner : "Winner unknown"}
+            Winner: {props.match.winner ? props.match.winner : "Winner unknown"}
           </span>
         </div>
       </div>
