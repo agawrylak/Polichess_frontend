@@ -62,10 +62,17 @@ const Content = () => {
 
 const Footer = ({ onClickSurrender }: any) => {
   const { undoMove } = useChessStore();
+  const { getOptionValue } = useSettingsStore();
+  const playerColor = getOptionValue("Play as");
+
+  function onClickUndo() {
+    undoMove(playerColor);
+  }
+
   return (
     <div>
       <TextButton onClick={onClickSurrender} text={"Surrender"} />
-      <TextButton onClick={undoMove} text={"Undo"} />
+      <TextButton onClick={onClickUndo} text={"Undo"} />
     </div>
   );
 };
