@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import SettingsSidebar from "./SettingsSidebar";
-import StatisticsSidebar from "./StatisticsSidebar";
-import LoginSidebar from "./LoginSidebar";
-import RegisterSidebar from "./RegisterSidebar";
+import React from "react";
+import Settings from "./Settings";
+import Statistics from "./Statistics";
+import Login from "./Login";
+import Register from "./Register";
 import { useAnimation } from "framer-motion";
 import {
   AnimatedObject,
   AnimationAction,
   doAnimations,
-} from "../utils/AnimationUtils";
+} from "../../utils/AnimationUtils";
 import useAsyncEffect from "use-async-effect";
-import { useAnimationStore } from "../stores/AnimationStore";
-import AccountSidebar from "./AccountSidebar";
-import HistorySidebar from "./HistorySidebar";
+import { useAnimationStore } from "../../stores/AnimationStore";
+import Account from "./Account";
+import History from "./History";
 
-const Sidebars = () => {
+const AnimationWrapper = () => {
   const loginAnimation = useAnimation();
   const registerAnimation = useAnimation();
   const statisticsAnimation = useAnimation();
@@ -170,17 +170,17 @@ const Sidebars = () => {
     <div className="w-screen md:w-96 flex flex-col flex-grow items-stretch z-10">
       <span className="hidden md:block text-5xl font-bold">PoliChess</span>
       <div className="z-20  relative">
-        <SettingsSidebar animation={settingsAnimation} />
-        <StatisticsSidebar animation={statisticsAnimation} />
-        <HistorySidebar animation={historyAnimation} />
+        <Settings animation={settingsAnimation} />
+        <Statistics animation={statisticsAnimation} />
+        <History animation={historyAnimation} />
       </div>
-      <div className="z-0  relative ">
-        <LoginSidebar animation={loginAnimation} />
-        <RegisterSidebar animation={registerAnimation} />
-        <AccountSidebar animation={accountAnimation} />
+      <div className="z-0 pt-4 relative ">
+        <Login animation={loginAnimation} />
+        <Register animation={registerAnimation} />
+        <Account animation={accountAnimation} />
       </div>
     </div>
   );
 };
 
-export default Sidebars;
+export default AnimationWrapper;

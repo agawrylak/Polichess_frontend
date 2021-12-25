@@ -1,8 +1,8 @@
 import React from "react";
-import { useSettingsStore } from "../stores/SettingsStore";
-import { API } from "../api/API";
-import { GameOutcomeMessage } from "../shared/board.interface";
-import { useChessStore } from "../stores/ChessStore";
+import { useSettingsStore } from "../../stores/SettingsStore";
+import { API } from "../../api/API";
+import { GameOutcomeMessage } from "../../shared/board.interface";
+import { useChessStore } from "../../stores/ChessStore";
 
 const WinnerModal = (props: any) => {
   const token = useSettingsStore((state) => state.token);

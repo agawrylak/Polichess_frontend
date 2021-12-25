@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import Sidebars from "./components/Sidebars";
-import Chessboard from "./components/Chessboard";
+import AnimationWrapper from "./components/sidebars/AnimationWrapper";
+import Chessboard from "./components/board/Chessboard";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
               <span className="text-5xl font-bold 	w-screen ">PoliChess</span>
             </div>
             <Chessboard />
-            <Sidebars />
+            <AnimationWrapper />
           </div>
         </div>
       </div>
