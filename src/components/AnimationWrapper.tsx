@@ -1,18 +1,19 @@
 import React from "react";
-import Settings from "./Settings";
-import Statistics from "./Statistics";
-import Login from "./Login";
-import Register from "./Register";
+import Settings from "./sidebars/Settings";
+import Statistics from "./sidebars/Statistics";
+import Login from "./sidebars/Login";
+import Register from "./sidebars/Register";
 import { useAnimation } from "framer-motion";
 import {
   AnimatedObject,
   AnimationAction,
-  doAnimations,
-} from "../../utils/AnimationUtils";
+  playAnimations,
+} from "../utils/AnimationUtils";
 import useAsyncEffect from "use-async-effect";
-import { useAnimationStore } from "../../stores/AnimationStore";
-import Account from "./Account";
-import History from "./History";
+import { useAnimationStore } from "../stores/AnimationStore";
+import Account from "./sidebars/Account";
+import History from "./sidebars/History";
+import Logo from "./Logo";
 
 const AnimationWrapper = () => {
   const loginAnimation = useAnimation();
@@ -149,7 +150,7 @@ const AnimationWrapper = () => {
       animatedAccount,
     ];
 
-    await doAnimations(animatedObjects);
+    await playAnimations(animatedObjects);
 
     setLoginAction(AnimationAction.DO_NOTHING);
     setRegisterAction(AnimationAction.DO_NOTHING);
@@ -167,14 +168,14 @@ const AnimationWrapper = () => {
   ]);
 
   return (
-    <div className="w-screen md:w-96 flex flex-col flex-grow items-stretch z-10">
-      <span className="hidden md:block text-5xl font-bold">PoliChess</span>
-      <div className="z-20  relative">
+    <div className="w-screen md:w-96 flex-initial flex-col items-stretch z-10">
+      <Logo isMobile={false} />
+      <div className="z-20 relative">
         <Settings animation={settingsAnimation} />
         <Statistics animation={statisticsAnimation} />
         <History animation={historyAnimation} />
       </div>
-      <div className="z-0 pt-4 relative ">
+      <div className="z-0 pt-4 relative">
         <Login animation={loginAnimation} />
         <Register animation={registerAnimation} />
         <Account animation={accountAnimation} />

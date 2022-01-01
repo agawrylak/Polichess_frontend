@@ -9,7 +9,7 @@ interface SidebarProps {
   setState: any;
   setAction: any;
   initialDisplay: string;
-  showIcon: boolean;
+  icon: any | null;
   animation: any;
   name: string;
   content: any;
@@ -21,7 +21,7 @@ const Sidebar = ({
   content,
   footer,
   initialDisplay,
-  showIcon,
+  icon,
   animation,
   setState,
   setAction,
@@ -48,13 +48,15 @@ const Sidebar = ({
       className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch z-10"
     >
       <div className="font-monospaced text-lg text-center">
-        <Header name={name} setAction={setAction} showIcon={showIcon} />
+        <Header name={name} setAction={setAction} icon={icon} />
         <div>
           <div className="bg-primary ">
             <div className="pt-2">{content}</div>
           </div>
         </div>
-        <div className="bg-primary">{footer}</div>
+        <div className="bg-primary basis-1/2 flex-initial justify-center items-center">
+          {footer}
+        </div>
       </div>
     </motion.div>
   );
@@ -63,7 +65,7 @@ const Sidebar = ({
 Sidebar.defaultProps = {
   initialDisplay: "none",
   setAction: () => {},
-  showIcon: false,
+  icon: null,
 };
 
 export default Sidebar;

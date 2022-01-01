@@ -5,27 +5,22 @@ import { IconButton } from "./Buttons";
 const Header = ({
   name,
   setAction,
-  showIcon,
+  icon,
 }: {
   name: string;
   setAction: any;
-  showIcon: boolean;
+  icon: any | null;
 }) => {
   function setSidebarAction() {
     setAction(AnimationAction.SHOW);
   }
 
   return (
-    <div className="flex bg-secondary">
-      <div
-        className={
-          (showIcon ? "ml-10" : null) +
-          "flex-1 font-header uppercase text-white p-1"
-        }
-      >
-        <span>{name}</span>
+    <div className="block font-header uppercase text-white p-1 bg-secondary text-center">
+      <div>
+        <span className={"text-center"}>{name}</span>
       </div>
-      {showIcon ? <IconButton setAction={setSidebarAction} /> : null}
+      {icon ? <IconButton setAction={setSidebarAction} icon={icon} /> : null}
     </div>
   );
 };

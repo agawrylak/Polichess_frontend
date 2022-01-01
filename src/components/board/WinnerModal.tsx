@@ -24,10 +24,10 @@ const WinnerModal = (props: any) => {
   function getWinner() {
     if (props.outcome == GameOutcomeMessage.WIN) {
       const color = playerColor == "w" ? "White" : "Black";
-      return color + " won (player)";
+      return color + " (player)";
     } else if (props.outcome == GameOutcomeMessage.LOSE) {
       const color = playerColor == "w" ? "Black" : "White";
-      return color + " won (AI)";
+      return color + " (AI)";
     } else {
       return "Draw";
     }

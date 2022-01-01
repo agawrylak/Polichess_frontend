@@ -6,6 +6,7 @@ import { useAnimationStore } from "../../stores/AnimationStore";
 import { useChessStore } from "../../stores/ChessStore";
 import Sidebar from "../Sidebar";
 import { TextButton } from "../Buttons";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 function Statistics(props: any) {
   const { resetGame, setAiFirst } = useChessStore();
@@ -30,7 +31,7 @@ function Statistics(props: any) {
       footer={<Footer onClick={onClickSurrender} />}
       setState={setStatisticsState}
       setAction={setSettingsAction}
-      showIcon={true}
+      icon={faCog}
     />
   );
 }
@@ -70,7 +71,7 @@ const Footer = ({ onClickSurrender }: any) => {
   }
 
   return (
-    <div>
+    <div className="flex bg-primary">
       <TextButton onClick={onClickSurrender} text={"Surrender"} />
       <TextButton onClick={onClickUndo} text={"Undo"} />
     </div>
