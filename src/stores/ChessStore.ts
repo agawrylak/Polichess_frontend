@@ -37,7 +37,6 @@ export const useChessStore = create<any>((set, get) => ({
   },
   undoMove: (playerColor: string) => {
     set((state: any) => {
-      console.log(state.chess.turn());
       if (state.chess.turn() != playerColor) {
         state.chess.undo();
         state.lastMove = [];

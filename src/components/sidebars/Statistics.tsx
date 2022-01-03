@@ -28,7 +28,7 @@ function Statistics(props: any) {
       name={getDifficulty() + " bot"}
       animation={props.animation}
       content={<Content />}
-      footer={<Footer onClick={onClickSurrender} />}
+      footer={<Footer onClickSurrender={onClickSurrender} />}
       setState={setStatisticsState}
       setAction={setSettingsAction}
       icon={faCog}

@@ -155,12 +155,10 @@ function sort(animatedObjects: AnimatedObject[]) {
       if (isSidebarEqual) {
         const isAHiding = a.animation.action == AnimationAction.HIDE;
         if (isAHiding) {
-          console.log("Switch " + a.sidebar.name + " with " + b.sidebar.name);
           return -1;
         }
         const isBHiding = b.animation.action == AnimationAction.HIDE;
         if (isBHiding) {
-          console.log("Switch " + a.sidebar.name + " with " + b.sidebar.name);
           return 1;
         }
         return 0;
