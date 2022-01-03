@@ -4,7 +4,7 @@ import { API } from "../../api/API";
 import { AxiosResponse } from "axios";
 import { useAnimationStore } from "../../stores/AnimationStore";
 import Sidebar from "../Sidebar";
-import { LoadingButton, TextButton } from "../Buttons";
+import { LoadingButton } from "../Buttons";
 import Input from "../Input";
 
 const Register = (props: any) => {

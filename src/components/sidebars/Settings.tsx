@@ -54,6 +54,7 @@ const Footer = () => {
       setAccountAction(AnimationAction.SHOW);
     }
   }
+
   if (token == "") {
     return (
       <div className="flex bg-primary">
@@ -80,6 +81,12 @@ const Content = () => {
   );
 };
 const Select = ({ label, options }: DropdownProps) => {
+  const { setOption } = useSettingsStore();
+
+  function onChange(event: any) {
+    setOption(label, event.target.value);
+  }
+
   return (
     <div className="flex grid grid-cols-2 text-center font-bold p-2">
       <span
@@ -87,7 +94,11 @@ const Select = ({ label, options }: DropdownProps) => {
       >
         {label}
       </span>
-      <select className="mr-2 ml-2 bg-background" name={label}>
+      <select
+        className="mr-2 ml-2 bg-background"
+        name={label}
+        onChange={onChange}
+      >
         {options.map((option: any) => {
           return <option label={option.label} value={option.value} />;
         })}

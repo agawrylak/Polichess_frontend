@@ -20,12 +20,22 @@ const Account = (props: any) => {
   );
 };
 
+const Content = () => {
+  const username = useSettingsStore((state) => state.user);
+  if (username == "") {
+    return null;
+  } else {
+    return <span>You are logged in as: {username}</span>;
+  }
+};
+
+
 const Footer = () => {
   return (
-    <div className="flex bg-primary">
-      <LogoutButton />
-      <HistoryButton />
-    </div>
+      <div className="flex bg-primary">
+        <LogoutButton />
+        <HistoryButton />
+      </div>
   );
 };
 
@@ -52,13 +62,5 @@ const HistoryButton = () => {
   return <TextButton onClick={onClick} text={"History"} />;
 };
 
-const Content = () => {
-  const username = useSettingsStore((state) => state.user);
-  if (username == "") {
-    return null;
-  } else {
-    return <span>You are logged in as: {username}</span>;
-  }
-};
 
 export default Account;
