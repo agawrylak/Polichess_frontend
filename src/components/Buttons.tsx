@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { TranslatedText } from "./TranslatedText";
 
 export const TextButton = ({ onClick, text }: any) => {
   return (
@@ -8,7 +9,7 @@ export const TextButton = ({ onClick, text }: any) => {
       onClick={onClick}
       className="flex-1 font-header uppercase text-white p-1 m-2 bg-secondary"
     >
-      <span>{text}</span>
+      <TranslatedText text={text} />
     </button>
   );
 };
@@ -41,7 +42,7 @@ export const LoadingButton = ({ onClick, text, isLoading }: any) => {
     );
   };
   const Text = () => {
-    return <span>{text}</span>;
+    return <TranslatedText text={text} />;
   };
   const buttonContent = isLoading ? <Icon /> : <Text />;
 

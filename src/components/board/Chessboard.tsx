@@ -25,7 +25,7 @@ const getMaxWidth = () => {
 
 function Chessboard() {
   const chess = useChessStore((state) => state.chess);
-  const lastMove = useChessStore((state) => state.lastMove);
+  let lastMove = useChessStore((state) => state.lastMove);
   const { setMove, setLastMove, resetGame } = useChessStore();
   const aiFirst = useChessStore((state) => state.aiFirst);
   const { setAiFirst } = useChessStore();
@@ -33,6 +33,7 @@ function Chessboard() {
   const statisticsState = useAnimationStore((state) => state.statisticsState);
   const { getOptionValue } = useSettingsStore();
   const playerColor = getOptionValue("Play as");
+  const isLastMoveVisible = getOptionValue("Last moves");
   let [maxWidth, setMaxWidth] = useState(getMaxWidth());
   const [open, setOpen] = useState(false);
   const [orientation, setOrientation] = useState("white");
@@ -40,6 +41,12 @@ function Chessboard() {
     GameOutcomeMessage.IN_PROGRESS
   );
   const [isChecked, setChecked] = useState(false);
+
+  const getLastMoveValue = () => {
+    if (isLastMoveVisible == "false") {
+      return [];
+    } else return lastMove;
+  };
 
   const closeModal = () => {
     setOpen(false);
@@ -172,7 +179,7 @@ function Chessboard() {
     borderColor: "#b88c64",
   };
   const overlayStyle = { background: "rgba(0,0,0,0.5)" };
-  const arrowStyle = { color: "#f8dcb4" }; // style for an svg element
+  const arrowStyle = { color: "#f8dcb4" };
 
   return (
     <div className="mr-4 mb-4 static z-30 bg-primary">
@@ -183,7 +190,7 @@ function Chessboard() {
         onMove={onMove}
         turnColor={turnColor()}
         movable={calcMovable()}
-        lastMove={lastMove}
+        lastMove={getLastMoveValue()}
         check={isChecked}
         premovable={{ enabled: false }}
         coordinates={false}

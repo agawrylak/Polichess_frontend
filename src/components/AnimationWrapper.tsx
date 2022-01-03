@@ -168,7 +168,7 @@ const AnimationWrapper = () => {
   ]);
 
   return (
-    <div className="w-screen md:w-96 flex-initial flex-col items-stretch z-10">
+    <div className="w-screen md:w-96	 flex-initial flex-col items-stretch z-10">
       <Logo isMobile={false} />
       <div className="z-20 relative">
         <Settings animation={settingsAnimation} />

@@ -18,7 +18,7 @@ const aiSettings: DropdownProps = {
 };
 
 const showMovesSettings: DropdownProps = {
-  label: "Show moves",
+  label: "Last moves",
   options: [
     { label: "Enabled", value: true },
     { label: "Disabled", value: false },

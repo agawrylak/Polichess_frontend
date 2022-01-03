@@ -23,7 +23,6 @@ export const useChessStore = create<any>((set, get) => ({
   },
   setAiFirst: (newValue: boolean) => {
     set((state: any) => {
-      console.log(newValue);
       state.aiFirst = newValue;
     });
   },
@@ -65,7 +64,7 @@ export const useChessStore = create<any>((set, get) => ({
   },
   setFen: (newValue: string) => {
     set((state: any) => {
-      console.log(state.chess.load(newValue));
+      state.chess.load(newValue);
     });
   },
   setChess: (newValue: any) => {

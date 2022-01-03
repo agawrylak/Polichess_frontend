@@ -6,7 +6,7 @@ export const useSettingsStore = create<any>((set, get) => ({
   user: "",
   options: [
     { label: "Difficulty", value: 3 },
-    { label: "Show moves", value: true },
+    { label: "Last moves", value: true },
     { label: "Language", value: "en_us" },
     { label: "Play as", value: "w" },
   ],

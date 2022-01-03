@@ -20,7 +20,7 @@ const Register = (props: any) => {
     setLoading(true);
     API.register(username, password, email)
       .then((response: AxiosResponse<any>) => {
-        setMessage("Registered successfully"); //TODO: FIX THIS
+        setMessage("Registered successfully");
         setLoading(false);
       })
       .catch((error: any) => {
@@ -39,7 +39,7 @@ const Register = (props: any) => {
           setUsername={setUsername}
           setPassword={setPassword}
           setEmail={setEmail}
-          errorMessage={message}
+          message={message}
         />
       }
       footer={<Footer onClick={onClick} isLoading={isLoading} />}
@@ -52,17 +52,17 @@ const Content = ({
   setUsername,
   setPassword,
   setEmail,
-  errorMessage, //TODO: CHANGE THIS NAME
+  message,
 }: {
   setUsername: any;
   setPassword: any;
   setEmail: any;
-  errorMessage: string;
+  message: string;
 }) => {
   return (
     <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
-      <Message message={errorMessage} />
-      <div className="grid grid-cols-1 gap-1 ">
+      <Message message={message} />
+      <div className="grid grid-cols-1">
         <Input inputName={"Email"} inputType={"email"} onChange={setEmail} />
         <Input inputName={"Name"} onChange={setUsername} />
         <Input

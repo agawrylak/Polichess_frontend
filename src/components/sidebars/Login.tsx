@@ -14,11 +14,11 @@ const Login = (props: any) => {
   const { setUser, setToken } = useSettingsStore();
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   function onClick() {
-    setErrorMessage("");
+    setMessage("");
     setLoading(true);
     API.login(username, password)
       .then((response: AxiosResponse<any>) => {
@@ -29,7 +29,7 @@ const Login = (props: any) => {
       })
       .catch((error: any) => {
         console.log(error);
-        setErrorMessage("Login failed");
+        setMessage("Login failed");
         setLoading(false);
       });
   }
@@ -42,7 +42,7 @@ const Login = (props: any) => {
         <Content
           setUsername={setUsername}
           setPassword={setPassword}
-          errorMessage={errorMessage}
+          message={message}
         />
       }
       footer={<Footer onClick={onClick} isLoading={isLoading} />}
@@ -51,10 +51,10 @@ const Login = (props: any) => {
   );
 };
 
-const Content = ({ errorMessage, setUsername, setPassword }: any) => {
+const Content = ({ message, setUsername, setPassword }: any) => {
   return (
     <div>
-      <Message message={errorMessage} />
+      <Message message={message} />
       <div>
         <Input inputName={"Name"} onChange={setUsername} />
         <Input

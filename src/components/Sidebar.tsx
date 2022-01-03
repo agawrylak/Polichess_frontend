@@ -3,6 +3,7 @@ import { AnimationDefinition } from "framer-motion/types/render/utils/animation"
 import { SidebarState } from "../utils/AnimationUtils";
 import { motion } from "framer-motion";
 import Header from "./Header";
+import { useSettingsStore } from "../stores/SettingsStore";
 
 //TODO: TYPES HERE
 interface SidebarProps {
@@ -45,7 +46,7 @@ const Sidebar = ({
       onAnimationComplete={(definition) => {
         onComplete(definition, setState);
       }}
-      className="w-screen md:w-96 min-h-full flex flex-col flex-grow items-stretch z-10"
+      className="min-h-full"
     >
       <div className="font-monospaced text-lg text-center">
         <Header name={name} setAction={setAction} icon={icon} />

@@ -13,6 +13,7 @@ function Statistics(props: any) {
   const { setStatisticsState, setSettingsAction } = useAnimationStore();
   const { getDifficulty, getOptionValue } = useSettingsStore();
   const playerColor = getOptionValue("Play as");
+  const sidebarName = getDifficulty() + " AI";
 
   function onClickSurrender() {
     resetGame();
@@ -25,7 +26,7 @@ function Statistics(props: any) {
 
   return (
     <Sidebar
-      name={getDifficulty() + " bot"}
+      name={sidebarName}
       animation={props.animation}
       content={<Content />}
       footer={<Footer onClickSurrender={onClickSurrender} />}
@@ -80,7 +81,7 @@ const Footer = ({ onClickSurrender }: any) => {
 
 const MoveHistory = (history: any[]) => {
   const chess = useChessStore((state) => state.chess);
-  const { setChess, setAiFirst, resetLastMove } = useChessStore();
+  const { setChess, setAiFirst } = useChessStore();
   function onClick(event: any) {
     const id = event.currentTarget.value;
     chess.reset();

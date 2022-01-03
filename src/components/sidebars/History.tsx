@@ -9,6 +9,7 @@ import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import Sidebar from "../Sidebar";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { TranslatedText } from "../TranslatedText";
 
 const History = (props: any) => {
   const { setHistoryState, setSettingsAction } = useAnimationStore();
@@ -66,11 +67,19 @@ const HistoryMessage = ({
   isLoadingFinished: boolean;
 }) => {
   const EmptyHistoryMessage = () => {
-    return <span className="pb-4">You do not have any match history yet.</span>;
+    return (
+      <span className="pb-4">
+        <TranslatedText text={"You do not have any match history yet."} />
+      </span>
+    );
   };
 
   const LoadingMessage = () => {
-    return <span className="pb-4">Loading...</span>;
+    return (
+      <span className="pb-4">
+        <TranslatedText text={"Loading"} untranslatedText={"..."} />
+      </span>
+    );
   };
 
   if (isLoadingFinished) {
@@ -88,8 +97,12 @@ const MatchHistory = ({ gameHistory }: any) => {
   return (
     <div>
       <div className="grid grid-cols-5 gap-1 text-center font-bold ">
-        <span className="col-span-2">{"DATA"}</span>
-        <span className="col-span-2">WINNER</span>
+        <span className="col-span-2">
+          <TranslatedText text={"Date"} />
+        </span>
+        <span className="col-span-2">
+          <TranslatedText text={"Winner"} />
+        </span>
         <span className="col-span-1">{""}</span>
       </div>
       <div>
@@ -128,18 +141,24 @@ const Match = (props: any) => {
     <div className={"p-1"}>
       <div className="grid grid-cols-5 gap-1 pb-2 text-center ">
         <span className="col-span-2">
-          {props.match.date
-            ? format(parseISO(props.match.date), "yyyy-MM-dd HH:mm")
-            : "Unknown"}
+          {props.match.date ? (
+            format(parseISO(props.match.date), "yyyy-MM-dd HH:mm")
+          ) : (
+            <TranslatedText text={"Unknown"} />
+          )}
         </span>
         <span className="col-span-2">
-          {props.match.winner ? props.match.winner : "Unknown"}
+          {props.match.winner ? (
+            <TranslatedText text={props.match.winner} />
+          ) : (
+            <TranslatedText text={"Unknown"} />
+          )}
         </span>
         <button
           onClick={onClick}
           className="mr-1 font-header uppercase text-white bg-secondary"
         >
-          <span>{"Load"}</span>
+          <TranslatedText text={"Load"} />
         </button>
       </div>
     </div>

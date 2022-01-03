@@ -1,6 +1,9 @@
 import React from "react";
 import { AnimationAction } from "../utils/AnimationUtils";
+import { getTranslation } from "../utils/DictionaryUtils";
 import { IconButton } from "./Buttons";
+import { useSettingsStore } from "../stores/SettingsStore";
+import { TranslatedText } from "./TranslatedText";
 
 const Header = ({
   name,
@@ -17,9 +20,7 @@ const Header = ({
 
   return (
     <div className="block font-header uppercase text-white p-1 bg-secondary text-center">
-      <div>
-        <span className={"text-center"}>{name}</span>
-      </div>
+      <TranslatedText text={name} />
       {icon ? <IconButton setAction={setSidebarAction} icon={icon} /> : null}
     </div>
   );

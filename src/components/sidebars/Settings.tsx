@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar";
 import { TextButton } from "../Buttons";
 import { DropdownProps, settings } from "../../shared/settings.interface";
 import { faChess } from "@fortawesome/free-solid-svg-icons";
+import { getTranslation } from "../../utils/DictionaryUtils";
 
 function Settings(props: any) {
   const { setSettingsState, setStatisticsAction } = useAnimationStore();
@@ -81,7 +82,8 @@ const Content = () => {
   );
 };
 const Select = ({ label, options }: DropdownProps) => {
-  const { setOption } = useSettingsStore();
+  const { setOption, getOptionValue } = useSettingsStore();
+  const language = getOptionValue("Language");
 
   function onChange(event: any) {
     setOption(label, event.target.value);
@@ -92,11 +94,12 @@ const Select = ({ label, options }: DropdownProps) => {
       <span
         className={"bg-primary text-black font-black font-header uppercase"}
       >
-        {label}
+        {getTranslation(label, language)}
       </span>
       <select
         className="mr-2 ml-2 bg-background"
         name={label}
+        value={getOptionValue(label)}
         onChange={onChange}
       >
         {options.map((option: any) => {
