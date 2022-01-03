@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-// @ts-ignore
-import Chessground from "react-chessground";
 import "react-chessground/dist/styles/chessground.css";
-import { GameOutcomeMessage } from "../shared/board.interface";
+import { GameOutcomeMessage } from "../../shared/board.interface";
 import WinnerModal from "./WinnerModal";
 import Popup from "reactjs-popup";
-import { API } from "../api/API";
+import { API } from "../../api/API";
 import useAsyncEffect from "use-async-effect";
-import { useChessStore } from "../stores/ChessStore";
-import { useAnimationStore } from "../stores/AnimationStore";
-import { useSettingsStore } from "../stores/SettingsStore";
-import { AnimationAction, SidebarState } from "../utils/AnimationUtils";
+import { useChessStore } from "../../stores/ChessStore";
+import { useAnimationStore } from "../../stores/AnimationStore";
+import { useSettingsStore } from "../../stores/SettingsStore";
+import { AnimationAction, SidebarState } from "../../utils/AnimationUtils";
+// @ts-ignore
+import Chessground from "react-chessground";
 
 const getMaxWidth = () => {
-  let maxSize = 900;
+  let maxSize = 2000;
   if (window.innerWidth < maxSize) {
-    maxSize = window.innerWidth;
+    maxSize = window.innerWidth - 50;
   }
   if (window.innerHeight < maxSize) {
-    maxSize = window.innerHeight;
+    maxSize = window.innerHeight - 50;
   }
   return maxSize;
 };

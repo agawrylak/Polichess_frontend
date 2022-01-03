@@ -35,9 +35,10 @@ export const useChessStore = create<any>((set, get) => ({
       state.isRegisterSidebarVisible = false;
     });
   },
-  undoMove: () => {
+  undoMove: (playerColor: string) => {
     set((state: any) => {
-      if (state.chess.turn() != state.playerColor) {
+      console.log(state.chess.turn());
+      if (state.chess.turn() != playerColor) {
         state.chess.undo();
         state.lastMove = [];
       } else {

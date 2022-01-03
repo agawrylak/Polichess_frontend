@@ -5,26 +5,6 @@ export enum SidebarState {
   HIDDEN = "HIDDEN",
 }
 
-export async function showDropdown(animation: AnimationControls) {
-  await animation.start({
-    display: "block",
-    opacity: 1,
-    rotateX: 0,
-    transition: { duration: 0.2 },
-  });
-}
-
-export async function hideDropdown(animation: AnimationControls) {
-  await animation.start({
-    opacity: 0,
-    rotateX: -15,
-    transition: { duration: 0.2 },
-  });
-  await animation.start({
-    display: "none",
-  });
-}
-
 export async function animateMenu(
   animation: AnimationControls,
   action: AnimationAction,
@@ -34,7 +14,7 @@ export async function animateMenu(
     if (orientation === "vertical") {
       await animation.start({
         display: "block",
-        y: [-300, 0],
+        y: [-250, 0],
         transition: { duration: 0.4 },
       });
     }
@@ -49,7 +29,7 @@ export async function animateMenu(
   if (action == AnimationAction.HIDE) {
     if (orientation === "vertical") {
       await animation.start({
-        y: [0, -300],
+        y: [0, -250],
         transition: { duration: 0.4 },
       });
       await animation.start({
@@ -152,10 +132,9 @@ async function proceedWithAnimations(animatedObjects: AnimatedObject[]) {
   }
 }
 
-export async function doAnimations(animatedObjects: AnimatedObject[]) {
+export async function playAnimations(animatedObjects: AnimatedObject[]) {
   setActionBasedOnState(animatedObjects);
   const sortedObjects = sort(animatedObjects);
-
   await proceedWithAnimations(sortedObjects);
 }
 
