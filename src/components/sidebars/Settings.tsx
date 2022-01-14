@@ -97,7 +97,7 @@ const Select = ({ label, options }: DropdownProps) => {
         {getTranslation(label, language)}
       </span>
       <select
-        className="mr-2 ml-2 bg-background"
+        className="mr-2 ml-2 bg-background shadow-secondary"
         name={label}
         value={getOptionValue(label)}
         onChange={onChange}

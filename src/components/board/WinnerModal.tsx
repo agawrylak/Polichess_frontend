@@ -55,7 +55,7 @@ const WinnerModal = (props: any) => {
   };
 
   return (
-    <div className="bg-primary ">
+    <div className="bg-primary">
       <span className="font-header uppercase text-3xl font-black">
         {props.outcome}
       </span>

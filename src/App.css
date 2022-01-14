@@ -2,25 +2,11 @@
   text-align: center;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -31,7 +17,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .popup-content {
   margin: auto;
@@ -52,4 +37,51 @@
 }
 [data-popup='tooltip'].popup-overlay {
   background: transparent;
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url("shared/assets/chess-pieces/wB.svg") !important;
+}
+.cg-wrap piece.queen.white {
+  background-image: url("shared/assets/chess-pieces/wQ.svg") !important;
+}
+.cg-wrap piece.king.white {
+  background-image: url("shared/assets/chess-pieces/wK.svg") !important;
+}
+.cg-wrap piece.pawn.white {
+   background-image: url("shared/assets/chess-pieces/wP.svg") !important;
+ }
+.cg-wrap piece.rook.white {
+  background-image: url("shared/assets/chess-pieces/wR.svg") !important;
+}
+.cg-wrap piece.knight.white {
+  background-image: url("shared/assets/chess-pieces/wN.svg") !important;
+}
+
+
+.cg-wrap piece.bishop.black {
+  background-image: url("shared/assets/chess-pieces/bB.svg") !important;
+}
+.cg-wrap piece.queen.black {
+  background-image: url("shared/assets/chess-pieces/bQ.svg") !important;
+}
+.cg-wrap piece.king.black {
+  background-image: url("shared/assets/chess-pieces/bK.svg") !important;
+}
+.cg-wrap piece.pawn.black {
+  background-image: url("shared/assets/chess-pieces/bP.svg") !important;
+  fill: none;
+  stroke: #646464;
+  stroke-width: 1px;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
+}
+.cg-wrap piece.rook.black {
+  background-image: url("shared/assets/chess-pieces/bR.svg") !important;
+}
+.cg-wrap piece.knight.black {
+  background-image: url("shared/assets/chess-pieces/bN.svg") !important;
+}
+.cg-wrap {
+  background-image: url('shared/assets/board.svg') !important;
 }

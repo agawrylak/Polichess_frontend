@@ -46,12 +46,12 @@ const Sidebar = ({
       onAnimationComplete={(definition) => {
         onComplete(definition, setState);
       }}
-      className="min-h-full"
+      className="min-h-full shadow-primary"
     >
       <div className="font-monospaced text-lg text-center">
         <Header name={name} setAction={setAction} icon={icon} />
         <div>
-          <div className="bg-primary ">
+          <div className="bg-primary">
             <div className="pt-2">{content}</div>
           </div>
         </div>

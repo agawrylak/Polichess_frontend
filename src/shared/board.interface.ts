@@ -24,61 +24,61 @@ export const allChessPieces: piece[] = [
   {
     pieceName: "k",
     color: "w",
-    link: require("./assets/chess-pieces/wK.png"),
+    link: require("./assets/chess-pieces/wK.svg"),
   },
   {
     pieceName: "q",
     color: "w",
-    link: require("./assets/chess-pieces/wQ.png"),
+    link: require("./assets/chess-pieces/wQ.svg"),
   },
   {
     pieceName: "r",
     color: "w",
-    link: require("./assets/chess-pieces/wR.png"),
+    link: require("./assets/chess-pieces/wR.svg"),
   },
   {
     pieceName: "n",
     color: "w",
-    link: require("./assets/chess-pieces/wN.png"),
+    link: require("./assets/chess-pieces/wN.svg"),
   },
   {
     pieceName: "b",
     color: "w",
-    link: require("./assets/chess-pieces/wB.png"),
+    link: require("./assets/chess-pieces/wB.svg"),
   },
   {
     pieceName: "p",
     color: "w",
-    link: require("./assets/chess-pieces/wP.png"),
+    link: require("./assets/chess-pieces/wP.svg"),
   },
   {
     pieceName: "k",
     color: "b",
-    link: require("./assets/chess-pieces/bK.png"),
+    link: require("./assets/chess-pieces/bK.svg"),
   },
   {
     pieceName: "q",
     color: "b",
-    link: require("./assets/chess-pieces/bQ.png"),
+    link: require("./assets/chess-pieces/bQ.svg"),
   },
   {
     pieceName: "r",
     color: "b",
-    link: require("./assets/chess-pieces/bR.png"),
+    link: require("./assets/chess-pieces/bR.svg"),
   },
   {
     pieceName: "n",
     color: "b",
-    link: require("./assets/chess-pieces/bN.png"),
+    link: require("./assets/chess-pieces/bN.svg"),
   },
   {
     pieceName: "b",
     color: "b",
-    link: require("./assets/chess-pieces/bN.png"),
+    link: require("./assets/chess-pieces/bN.svg"),
   },
   {
     pieceName: "p",
     color: "b",
-    link: require("./assets/chess-pieces/bP.png"),
+    link: require("./assets/chess-pieces/bP.svg"),
   },
 ];

@@ -40,6 +40,7 @@ const Register = (props: any) => {
           setPassword={setPassword}
           setEmail={setEmail}
           message={message}
+          setMessage={setMessage}
         />
       }
       footer={<Footer onClick={onClick} isLoading={isLoading} />}
@@ -53,22 +54,37 @@ const Content = ({
   setPassword,
   setEmail,
   message,
+  setMessage,
 }: {
   setUsername: any;
   setPassword: any;
   setEmail: any;
   message: string;
+  setMessage: any;
 }) => {
   return (
     <div className="flex flex-col bg-primary text-center p-0 pt-2 font-bold text-center ">
       <Message message={message} />
       <div className="grid grid-cols-1">
-        <Input inputName={"Email"} inputType={"email"} onChange={setEmail} />
-        <Input inputName={"Name"} onChange={setUsername} />
+        <Input
+          inputName={"Email"}
+          inputType={"email"}
+          onChange={setEmail}
+          regex={"123"}
+          setMessage={setMessage}
+        />
+        <Input
+          inputName={"Name"}
+          onChange={setUsername}
+          regex={"123"}
+          setMessage={setMessage}
+        />
         <Input
           inputName={"Password"}
           inputType={"password"}
           onChange={setPassword}
+          regex={"123"}
+          setMessage={setMessage}
         />
       </div>
     </div>

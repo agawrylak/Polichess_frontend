@@ -15,10 +15,18 @@ import Chessground from "react-chessground";
 const getMaxWidth = () => {
   let maxSize = 2000;
   if (window.innerWidth < maxSize) {
-    maxSize = window.innerWidth - 50;
+    if (window.innerWidth < 768) {
+      maxSize = window.innerWidth;
+    } else {
+      maxSize = window.innerWidth - 50;
+    }
   }
   if (window.innerHeight < maxSize) {
-    maxSize = window.innerHeight - 50;
+    if (window.innerHeight < 768) {
+      maxSize = window.innerHeight;
+    } else {
+      maxSize = window.innerHeight - 50;
+    }
   }
   return maxSize;
 };
@@ -174,15 +182,15 @@ function Chessboard() {
     handleMatchOutcome();
   };
   const contentStyle = {
-    background: "#f8dcb4",
+    background: "#d4d9bf",
     border: "solid",
-    borderColor: "#b88c64",
+    borderColor: "#538373",
   };
   const overlayStyle = { background: "rgba(0,0,0,0.5)" };
-  const arrowStyle = { color: "#f8dcb4" };
+  const arrowStyle = { color: "#d4d9bf" };
 
   return (
-    <div className="mr-4 mb-4 static z-30 bg-primary">
+    <div className="mr-4 mb-1 md:mb-4 static z-30 shadow-primary">
       <Chessground
         width={maxWidth}
         height={maxWidth}

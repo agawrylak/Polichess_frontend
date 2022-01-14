@@ -19,7 +19,7 @@ const Header = ({
   }
 
   return (
-    <div className="block font-header uppercase text-white p-1 bg-secondary text-center">
+    <div className="block text-xl	font-header uppercase text-white p-1 bg-secondary text-center shadow-primary">
       <TranslatedText text={name} />
       {icon ? <IconButton setAction={setSidebarAction} icon={icon} /> : null}
     </div>

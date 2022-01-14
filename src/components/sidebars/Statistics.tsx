@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { allChessPieces } from "../../shared/board.interface";
 import { Move } from "chess.js";
 import { useSettingsStore } from "../../stores/SettingsStore";
@@ -7,6 +7,7 @@ import { useChessStore } from "../../stores/ChessStore";
 import Sidebar from "../Sidebar";
 import { TextButton } from "../Buttons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import React_2, { motion } from "framer-motion/dist/framer-motion";
 
 function Statistics(props: any) {
   const { resetGame, setAiFirst } = useChessStore();
@@ -39,17 +40,65 @@ function Statistics(props: any) {
 
 const Content = () => {
   const { getHistory } = useChessStore();
+  const historySize = getHistory().length;
+
+  const rowSize = () => {
+    if (historySize == 0) {
+      return 0;
+    } else {
+      return historySize % 2 == 0
+        ? historySize / 2 + 1
+        : (historySize + 1) / 2 + 1;
+    }
+  };
+
+  function getHeight(i: number) {
+    let result = 10 + i * 28;
+    if (result > 80) {
+      result -= 12;
+    }
+    return result + "px";
+  }
+
+  function getOverflow(i: number) {
+    let result = 10 + i * 28;
+    if (result > 80) {
+      result -= 12;
+    }
+    if (result > 380) {
+      return "scroll";
+    } else {
+      return "hidden";
+    }
+  }
+
+  const variants = {
+    grow: (i: number) => ({
+      height: getHeight(i),
+      "overflow-y": getOverflow(i),
+    }),
+  };
+  const SideLabel = (props: any) => {
+    if (props.size > 0) {
+      return <span className={"text-center"}>{props.text}</span>;
+    } else {
+      return null;
+    }
+  };
   return (
-    <div className="bg-primary text-left p-0 pt-2 pb-2 font-bold ">
-      <div className="max-h-96 overflow-y-auto flex grid grid-cols-2 gap-0 ">
-        <div className="col-span-2 grid grid-cols-2 ml-2 mr-2">
-          <div className={"mx-auto w-full h-6 bg-white mb-2 text-center"} />
-          <div className={"mx-auto w-full h-6 bg-black mb-2 text-center"}>
-            {" "}
-          </div>
-        </div>
+    <div className="bg-primary text-left font-bold">
+      <motion.div
+        custom={rowSize()}
+        animate="grow"
+        variants={variants}
+        transition={{ ease: "easeInOut" }}
+        className="max-h-96 grid grid-cols-2 gap-0 auto-rows-min"
+      >
+        <SideLabel text={"White"} size={historySize} />
+        <SideLabel text={"Black"} size={historySize} />
+
         {MoveHistory(getHistory())}
-      </div>
+      </motion.div>
       <div className="flex grid grid-cols-2 gap-0 mt-2">
         <div className="flex flex-grow flex-wrap justify-center justify-items-start">
           {LostPieces(getCapturedPieces(getHistory(), "b"))}
@@ -100,7 +149,7 @@ const MoveHistory = (history: any[]) => {
       onClick={onClick}
       value={index}
       className={
-        "hover:bg-secondary w-full text-center " + getColorForOddRow(index)
+        "hover:bg-hover h-px-28 w-full text-center" + getColorForOddRow(index)
       }
     >
       {(move.piece != "p" ? move.piece : "").toUpperCase() +
@@ -127,7 +176,7 @@ const getColorForOddRow = (moveId: number) => {
     number += 1;
   }
   const isRowOdd = (number / 2) % 2 === 0;
-  return isRowOdd ? " bg-primary2 " : " bg-primary ";
+  return isRowOdd ? " bg-highlight " : " bg-primary ";
 };
 
 function getCapturedPieces(history: any[], color: string) {
