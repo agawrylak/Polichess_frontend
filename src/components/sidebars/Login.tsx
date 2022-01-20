@@ -61,14 +61,14 @@ const Content = ({ message, setMessage, setUsername, setPassword }: any) => {
           inputName={"Name"}
           onChange={setUsername}
           regex={"123"}
-          setMessage={() => setMessage("Name is invalid")}
+          setMessage={() => setMessage("Username is too short!")}
         />
         <Input
           inputName={"Password"}
           inputType={"password"}
           onChange={setPassword}
           regex={"(.*.){3}"}
-          setMessage={() => setMessage("Password is invalid")}
+          setMessage={() => setMessage("Password is too short!")}
         />
       </div>
     </div>

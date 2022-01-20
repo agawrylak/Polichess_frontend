@@ -10,10 +10,6 @@ module.exports = {
       none: "none",
       2: "1 0 50%",
     },
-    backgroundImage: {
-      bg: "url('shared/assets/background.gif')",
-      textlogo: "url('shared/assets/logo2.svg')",
-    },
     colors: {
       logo: "#35544a",
       white: "#FFFFFF",

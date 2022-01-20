@@ -190,7 +190,7 @@ function Chessboard() {
   const arrowStyle = { color: "#d4d9bf" };
 
   return (
-    <div className="mr-4 mb-1 md:mb-4 static z-30 shadow-primary">
+    <div className="mr-4 mt-4 md:mb-4 static z-30 shadow-primary">
       <Chessground
         width={maxWidth}
         height={maxWidth}

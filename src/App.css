@@ -1,8 +1,15 @@
 .App {
   text-align: center;
 }
-
-
+html { background-color: #f4f6ef; }
+body {
+  min-height: 100vh;
+  margin: 0 auto;
+}
+#root {
+  min-height: 100vh;
+  margin: 0 auto;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
