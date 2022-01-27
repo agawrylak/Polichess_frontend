@@ -92,3 +92,9 @@ body {
 .cg-wrap {
   background-image: url('shared/assets/board.svg') !important;
 }
+.pt-4 {
+  width: 385px;
+  padding-top: 1rem!important;
+  clip: rect(-1px,392px,300px, -10px);
+  position: absolute !important;
+}
